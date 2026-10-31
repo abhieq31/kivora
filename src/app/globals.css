@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-brand: #3b3fd8;
+  --color-brand-dark: #2a2db0;
+  --color-brand-soft: #eef0ff;
+  --color-accent: #ff7a45;
+  --color-good: #0f8a5f;
+  --color-bad: #c2410c;
+  --color-ink: #0f172a;
+  --color-muted: #64748b;
+  --color-line: #e2e8f0;
+  --color-paper: #f8fafc;
+  --font-sans: var(--font-inter);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  background: #fff;
+  color: var(--color-ink);
+}
+
+@layer components {
+  .input {
+    @apply w-full rounded-lg border border-line bg-white px-3 py-2 text-sm outline-none transition focus:border-brand focus:ring-2 focus:ring-brand-soft disabled:bg-paper disabled:text-muted;
+  }
+  .label {
+    @apply mb-1 block text-sm font-medium text-ink;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brand px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-dark disabled:opacity-60;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-brand bg-white px-4 py-2.5 text-sm font-semibold text-brand transition hover:bg-brand-soft;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-white px-3 py-2 text-sm font-medium transition hover:border-ink;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full border border-line bg-white px-3 py-1.5 text-sm font-medium transition hover:border-ink;
+  }
+  .chip-on {
+    @apply border-brand bg-brand-soft text-brand-dark;
+  }
+  .card {
+    @apply rounded-xl border border-line bg-white;
+  }
+  .h-section {
+    @apply text-xl font-bold tracking-tight;
+  }
+}
+
+/* Leaflet price pins */
+.kv-pin {
+  background: var(--color-brand);
+  color: #fff;
+  font: 600 12px/1 var(--font-inter), system-ui, sans-serif;
+  padding: 5px 7px;
+  border-radius: 8px;
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+  border: 1.5px solid #fff;
+  transform: translate(-50%, -100%);
+  position: absolute;
+}
+.kv-pin.rent { background: #0f8a5f; }
+.kv-pin.closed { background: #64748b; }
+.kv-pin.hot, .kv-pin:hover { background: var(--color-ink); z-index: 1000; }
+.kv-dense .kv-pin:not(.hot):not(:hover) {
+  font-size: 0; padding: 0; width: 12px; height: 12px; border-radius: 50%; transform: translate(-50%, -50%);
+}
+.kv-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--color-brand); border: 2px solid #fff; box-shadow: 0 1px 2px rgb(0 0 0 / 0.4); }
+.kv-dot.rent { background: #0f8a5f; }
+.kv-dot.closed { background: #64748b; }
+.leaflet-container { font-family: var(--font-inter), system-ui, sans-serif; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }

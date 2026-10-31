@@ -1,0 +1,2 @@
+export const AMENITIES = ["Lift", "Power backup", "Security", "Gym", "Swimming pool", "Clubhouse", "Children's play area", "Garden", "Covered parking", "Visitor parking", "Intercom", "Gas pipeline", "Rainwater harvesting", "CCTV", "Jogging track", "Indoor games", "Fire safety", "24x7 water", "Maintenance staff", "Vaastu compliant"];
+export const FACINGS = ["east", "north", "north-east", "west", "south", "north-west", "south-east", "south-west"];
