@@ -20,7 +20,7 @@ const GROUPS: [string, (typeof SERVICES)[number]["audience"][]][] = [
 export default function Page({ searchParams }: PageProps<"/services">) {
   return (
     <>
-      <main className="mx-auto grid max-w-6xl gap-10 px-4 py-12 lg:grid-cols-[1fr_360px]">
+      <main className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] gap-10 px-4 py-12 lg:grid-cols-[1fr_360px]">
         <div>
           <h1 className="text-4xl font-extrabold tracking-tight">Fixed fees. No brokerage.</h1>
           <p className="mt-3 max-w-2xl text-lg text-muted">
@@ -29,7 +29,7 @@ export default function Page({ searchParams }: PageProps<"/services">) {
           {GROUPS.map(([label, aud]) => (
             <section key={label} className="mt-10">
               <h2 className="h-section">{label}</h2>
-              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {SERVICES.filter((s) => aud.includes(s.audience)).map((s) => (
                   <div key={s.id} id={s.id} className="card scroll-mt-24 p-5">
                     <div className="flex items-baseline justify-between gap-3">

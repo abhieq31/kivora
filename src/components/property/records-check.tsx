@@ -19,7 +19,7 @@ export function RecordsCheck({ state, sale, surveyNo }: { state: string; sale: b
             {rec.terms.map((t) => <span key={t} className="rounded-full bg-brand-soft px-2.5 py-0.5 text-xs font-semibold text-brand-dark">{t}</span>)}
           </div>
           {surveyNo && <p className="mt-3 text-sm">{rec.idLabel} given by the {sale ? "seller" : "owner"}: <b>{surveyNo}</b></p>}
-          <div className="mt-3 grid gap-2 sm:grid-cols-3">
+          <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3">
             {rec.portals.map((p) => (
               <a key={p.url} href={p.url} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-paper p-3 text-sm hover:ring-1 hover:ring-brand">
                 <span className="flex items-center gap-1 font-semibold">{p.name} <ExternalLink className="h-3.5 w-3.5" /></span>

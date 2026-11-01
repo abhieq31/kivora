@@ -24,7 +24,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en-IN" className={`${inter.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">
         <Header />
-        <div className="flex flex-1 flex-col">{children}</div>
+        {/* Pages centre themselves with mx-auto; w-full stops them shrinking to content width on phones. */}
+        <div className="flex flex-1 flex-col *:w-full">{children}</div>
         <ServiceWorker />
       </body>
     </html>

@@ -44,7 +44,7 @@ async function Body({ searchParams }: { searchParams: SP }) {
   const user = await getUser();
 
   const form = (
-    <form className="card mt-8 grid gap-4 p-6 sm:grid-cols-4" action="/home-value">
+    <form className="card mt-8 grid grid-cols-1 gap-4 p-6 sm:grid-cols-4" action="/home-value">
       <CityLocality city={s("city")} locality={s("locality")} />
       <label className="block"><span className="label">Home type</span>
         <select name="type" className="input" defaultValue={s("type") || "apartment"}>
@@ -69,7 +69,7 @@ async function Body({ searchParams }: { searchParams: SP }) {
     return (
       <>
         {form}
-        <div className="mt-10 grid gap-6 sm:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
           {[
             ["Comparable sales", "We find registered sales near your home and weight them by distance, recency and similarity."],
             ["Indian adjustments", "Floor, building age, furnishing, covered parking and Vastu-preferred facing all move the number."],
@@ -97,13 +97,13 @@ async function Body({ searchParams }: { searchParams: SP }) {
         {!sale && !rent ? (
           <p className="mt-4 rounded-xl bg-white p-6 text-muted">We don&apos;t have enough transactions in {city.name} to estimate this home yet. We&apos;re adding cities every month.</p>
         ) : (
-          <div className="mt-2 grid gap-6 lg:grid-cols-2">
+          <div className="mt-2 grid grid-cols-1 gap-6 lg:grid-cols-2">
             <div className="rounded-xl bg-white">{sale && <><p className="px-1 pt-4 font-semibold">Market value</p><EstimateBlock est={sale} kind="sale" /></>}</div>
             <div className="rounded-xl bg-white">{rent && <><p className="px-1 pt-4 font-semibold">Rent estimate</p><EstimateBlock est={rent} kind="rent" /></>}</div>
           </div>
         )}
         {yieldPct && (
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
             <div className="card p-4"><p className="text-sm text-muted">Gross rental yield</p><p className="text-2xl font-bold">{pct(yieldPct)}</p></div>
             <div className="card p-4"><p className="text-sm text-muted">Annual rent</p><p className="text-2xl font-bold">{priceLabel(rent!.value * 12)}</p></div>
             <div className="card p-4"><p className="text-sm text-muted">Price growth nearby</p><p className="text-2xl font-bold">{sale!.annualGrowth >= 0 ? "+" : ""}{pct(sale!.annualGrowth)}/yr</p></div>

@@ -43,3 +43,12 @@ next-env.d.ts
 # local database and uploads
 .data
 !.env.example
+
+# Android build: signing keys and build output never go in git
+android/signing/
+android/tools/node_modules/
+android/project/build/
+android/project/app/build/
+android/project/.gradle/
+android/project/local.properties
+android/dist/

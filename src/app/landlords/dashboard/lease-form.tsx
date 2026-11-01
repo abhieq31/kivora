@@ -12,7 +12,7 @@ export function LeaseForm({ listings }: { listings: { id: number; label: string 
     return { today: now.toISOString().slice(0, 10), end: new Date(now.getTime() + 334 * 86400000).toISOString().slice(0, 10) };
   });
   return (
-    <form action={action} className="mt-4 grid gap-4 sm:grid-cols-3">
+    <form action={action} className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
       <Field label="Property label" className="sm:col-span-2"><input name="label" className="input" placeholder="Flat 402, Lake Residency" required /></Field>
       <Field label="Linked listing (optional)" hint="Marks it rented">
         <select name="property_id" className="input" defaultValue=""><option value="">None</option>{listings.map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}</select>

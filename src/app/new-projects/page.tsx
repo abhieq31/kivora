@@ -39,7 +39,7 @@ async function List({ searchParams }: { searchParams: SP }) {
         <button className="btn">Filter</button>
       </form>
       <p className="mt-4 text-sm text-muted">{projects.length} projects</p>
-      <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((p) => (
           <Link key={p.id} href={`/new-projects/${p.id}`} className="card overflow-hidden transition hover:shadow-md">
             {/* eslint-disable-next-line @next/next/no-img-element */}

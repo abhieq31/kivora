@@ -1,0 +1,66 @@
+{
+  "packageId": "in.nakshly.app",
+  "host": "nakshly.vercel.app",
+  "name": "Nakshly",
+  "launcherName": "Nakshly",
+  "display": "standalone",
+  "themeColor": "#3B3FD8",
+  "themeColorDark": "#000000",
+  "navigationColor": "#3B3FD8",
+  "navigationColorDark": "#000000",
+  "navigationDividerColor": "#000000",
+  "navigationDividerColorDark": "#000000",
+  "backgroundColor": "#FFFFFF",
+  "enableNotifications": false,
+  "startUrl": "/?utm_source=app",
+  "iconUrl": "https://nakshly.vercel.app/icons/icon-512.png",
+  "maskableIconUrl": "https://nakshly.vercel.app/icons/maskable-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "../signing/nakshly-upload.jks",
+    "alias": "upload"
+  },
+  "appVersionName": "1.0.0",
+  "appVersionCode": 1,
+  "shortcuts": [
+    {
+      "name": "Rent a home",
+      "shortName": "Rent a home",
+      "url": "https://nakshly.vercel.app/rent?utm_source=app",
+      "chosenIconUrl": "https://nakshly.vercel.app/icons/icon-192.png"
+    },
+    {
+      "name": "Post your property",
+      "shortName": "Post your pr",
+      "url": "https://nakshly.vercel.app/post-property?utm_source=app",
+      "chosenIconUrl": "https://nakshly.vercel.app/icons/icon-192.png"
+    },
+    {
+      "name": "Check land records",
+      "shortName": "Check land r",
+      "url": "https://nakshly.vercel.app/land-records?utm_source=app",
+      "chosenIconUrl": "https://nakshly.vercel.app/icons/icon-192.png"
+    }
+  ],
+  "generatorApp": "unknown",
+  "webManifestUrl": "https://nakshly.vercel.app/manifest.webmanifest",
+  "fallbackType": "customtabs",
+  "features": {},
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://nakshly.vercel.app/",
+  "minSdkVersion": 21,
+  "orientation": "portrait",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "protocolHandlers": [],
+  "fileHandlers": [],
+  "launchHandlerClientMode": "",
+  "displayOverride": [],
+  "appVersion": "1.0.0"
+}

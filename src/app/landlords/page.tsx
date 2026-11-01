@@ -18,7 +18,7 @@ export default function Page() {
           </div>
         </div>
       </section>
-      <section className="mx-auto grid max-w-6xl gap-6 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="mx-auto grid grid-cols-1 max-w-6xl gap-6 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
         {[
           [<ClipboardList key="i" className="h-7 w-7" />, "Free listing", "Your rental shows on the map with a rent estimate, so tenants see it's fairly priced."],
           [<Users key="i" className="h-7 w-7" />, "Applications, not calls", "Tenants apply with a renter profile: occupation, income, household size, move-in date."],

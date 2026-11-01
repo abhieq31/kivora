@@ -22,7 +22,7 @@ export function SaleCosts({ price, state, maintenance, underConstruction }: { pr
     { label: "Maintenance", v: maintenance ?? 0, color: "#ff7a45" },
   ].filter((p) => p.v > 0);
   return (
-    <div className="grid gap-6 md:grid-cols-2">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
       <div className="space-y-4">
         <div>
           <p className="text-sm text-muted">Estimated monthly cost</p>
@@ -79,7 +79,7 @@ export function RentCosts({ rent, deposit, maintenance, viaAgent }: { rent: numb
   const agreement = 1500;
   const moveIn = (deposit ?? rent * 2) + rent + brokerage + agreement;
   return (
-    <div className="grid gap-4 sm:grid-cols-2">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <div className="rounded-xl bg-paper p-4 text-sm">
         <p className="mb-2 font-semibold">Monthly</p>
         <ul className="space-y-1">

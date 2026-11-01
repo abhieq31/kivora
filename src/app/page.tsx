@@ -28,7 +28,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-14 md:grid-cols-3">
+      <section className="mx-auto grid grid-cols-1 max-w-7xl gap-6 px-4 py-14 md:grid-cols-3">
         {[
           { icon: <Home className="h-10 w-10" />, title: "Buy a home", body: "Search verified flats, villas and plots with price history and an independent estimate on every home.", href: "/buy", cta: "Browse homes" },
           { icon: <HandCoins className="h-10 w-10" />, title: "Sell a home", body: "Get a free estimate, list directly to buyers, or compare agents who publish their fees up front.", href: "/sell", cta: "See your options" },
@@ -48,7 +48,7 @@ export default function HomePage() {
       </Suspense>
 
       <section className="bg-paper">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 md:grid-cols-2">
+        <div className="mx-auto grid grid-cols-1 max-w-7xl items-center gap-10 px-4 py-16 md:grid-cols-2">
           <div>
             <p className="text-sm font-semibold uppercase tracking-wide text-brand">Nakshly Estimate</p>
             <h2 className="mt-2 text-3xl font-bold tracking-tight">Know what any home is worth — before you negotiate.</h2>
@@ -82,7 +82,7 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-7xl px-4 py-16">
         <h2 className="text-3xl font-bold tracking-tight">Built for how India buys and rents</h2>
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {[
             [<ShieldCheck key="i" className="h-6 w-6" />, "RERA, front and centre", "New projects show their RERA number. Agents show their RERA agent registration. Check it before you pay."],
             [<HandCoins key="i" className="h-6 w-6" />, "Fees you can see", "Agents publish their fee — flat or percentage — on their profile. Owner listings have no brokerage."],
@@ -122,7 +122,7 @@ async function Fresh() {
         </div>
         <Link href="/buy" className="text-sm font-semibold text-brand hover:underline">See all homes</Link>
       </div>
-      <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {[...sale.slice(0, 4), ...rent.slice(0, 4)].map((l) => <PropertyCard key={l.id} l={l} saved={saved.has(l.id)} />)}
       </div>
     </section>
@@ -136,7 +136,7 @@ async function Cities() {
     <section className="mx-auto max-w-7xl px-4 pt-16">
       <h2 className="text-2xl font-bold tracking-tight">Explore cities</h2>
       <p className="text-muted">Median price per sq ft (carpet) from the last six months of transactions</p>
-      <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((s) => (
           <Link key={s.city} href={`/buy/${s.city}`} className="card p-4 transition hover:border-brand hover:shadow-md">
             <div className="flex items-baseline justify-between">

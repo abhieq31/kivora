@@ -46,7 +46,7 @@ async function Profile({ params }: { params: PageProps<"/agents/[id]">["params"]
   const sold = listings.filter((l) => l.status !== "active");
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
-      <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[1fr_360px]">
         <div className="space-y-10">
           <header className="flex flex-wrap gap-5">
             <div className="grid h-24 w-24 place-items-center rounded-full bg-brand text-3xl font-bold text-white">{a.name.split(" ").map((x) => x[0]).join("").slice(0, 2)}</div>
@@ -64,7 +64,7 @@ async function Profile({ params }: { params: PageProps<"/agents/[id]">["params"]
           </div>
           <section>
             <h2 className="h-section">Fees</h2>
-            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className="rounded-xl bg-paper p-4"><p className="text-sm text-muted">Buying or selling</p><p className="text-lg font-bold">{a.sale_fee}</p></div>
               <div className="rounded-xl bg-paper p-4"><p className="text-sm text-muted">Renting</p><p className="text-lg font-bold">{a.rent_fee}</p></div>
             </div>
@@ -79,13 +79,13 @@ async function Profile({ params }: { params: PageProps<"/agents/[id]">["params"]
           {active.length > 0 && (
             <section>
               <h2 className="h-section">Active listings ({active.length})</h2>
-              <div className="mt-4 grid gap-4 sm:grid-cols-2">{active.map((l) => <PropertyCard key={l.id} l={l} compact />)}</div>
+              <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">{active.map((l) => <PropertyCard key={l.id} l={l} compact />)}</div>
             </section>
           )}
           {sold.length > 0 && (
             <section>
               <h2 className="h-section">Recently closed</h2>
-              <div className="mt-4 grid gap-4 sm:grid-cols-2">{sold.map((l) => <PropertyCard key={l.id} l={l} compact />)}</div>
+              <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">{sold.map((l) => <PropertyCard key={l.id} l={l} compact />)}</div>
             </section>
           )}
           <section>

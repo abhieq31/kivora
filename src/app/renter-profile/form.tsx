@@ -10,7 +10,7 @@ export function RenterForm({ initial, next }: { initial: Init; next: string }) {
   const [state, action] = useActionState(saveRenterProfile, null);
   const v = (k: string) => (initial[k] == null ? "" : String(initial[k]));
   return (
-    <form action={action} className="card mt-6 grid gap-4 p-6 sm:grid-cols-2">
+    <form action={action} className="card mt-6 grid grid-cols-1 gap-4 p-6 sm:grid-cols-2">
       <input type="hidden" name="next" value={next} />
       <Field label="Full name"><input name="full_name" className="input" defaultValue={v("full_name")} required /></Field>
       <Field label="Mobile"><input name="phone" className="input" defaultValue={v("phone")} required inputMode="tel" /></Field>

@@ -130,7 +130,7 @@ export function ListingWizard({ initial, isAgent }: { initial?: ListingDraft; is
       )}
 
       {step === 1 && (
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Field label="City">
             <select className="input" value={String(d.city)} onChange={(e) => { set("city", e.target.value); set("lat", null); set("lng", null); }}>
               <option value="">Choose a city</option>
@@ -155,13 +155,13 @@ export function ListingWizard({ initial, isAgent }: { initial?: ListingDraft; is
       {step === 2 && (
         <div className="space-y-6">
           {!plot && (
-            <div className="grid gap-6 sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
               <div><p className="label">BHK</p>{choice("bhk", [1, 2, 3, 4, 5].map((n) => [n, n === 5 ? "5+" : String(n)]))}</div>
               <div><p className="label">Bathrooms</p>{choice("bathrooms", [1, 2, 3, 4, 5].map((n) => [n, String(n)]))}</div>
               <div><p className="label">Balconies</p>{choice("balconies", [0, 1, 2, 3].map((n) => [n, String(n)]))}</div>
             </div>
           )}
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             {num("carpet_sqft", plot ? "Plot area (sq ft)" : "Carpet area (sq ft)", { hint: plot ? undefined : "Usable floor area inside walls (RERA definition)" })}
             {!plot && num("builtup_sqft", "Built-up area (sq ft)", { hint: "Optional" })}
             {d.property_type === "apartment" && num("super_sqft", "Super built-up area (sq ft)", { hint: "Optional; includes common areas" })}
@@ -175,7 +175,7 @@ export function ListingWizard({ initial, isAgent }: { initial?: ListingDraft; is
           <div><p className="label">Facing</p>{choice("facing", FACINGS.map((f) => [f, f.replace(/(^|-)\w/g, (c) => c.toUpperCase())]))}</div>
           {!plot && <div><p className="label">Furnishing</p>{choice("furnishing", [["unfurnished", "Unfurnished"], ["semi", "Semi-furnished"], ["full", "Fully furnished"]])}</div>}
           {sale && (
-            <div className="grid gap-4 sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <div className="sm:col-span-3"><p className="label">Possession</p>{choice("possession", [["ready", "Ready to move"], ["under_construction", "Under construction"]])}</div>
               {d.possession === "under_construction" && <Field label="Expected possession"><input type="date" className="input" value={String(d.possession_date)} onChange={(e) => set("possession_date", e.target.value)} /></Field>}
               <Field label="RERA registration no." hint={d.possession === "under_construction" ? "Required for under-construction projects" : "If the project is RERA registered"}>
@@ -189,7 +189,7 @@ export function ListingWizard({ initial, isAgent }: { initial?: ListingDraft; is
             </div>
           )}
           {!plot && (
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div><p className="label">Covered parking</p>{choice("parking_covered", [0, 1, 2, 3].map((n) => [n, String(n)]))}</div>
               <div><p className="label">Open parking</p>{choice("parking_open", [0, 1, 2].map((n) => [n, String(n)]))}</div>
             </div>
@@ -199,7 +199,7 @@ export function ListingWizard({ initial, isAgent }: { initial?: ListingDraft; is
 
       {step === 3 && (
         <div className="space-y-6">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field label={sale ? "Asking price (₹)" : "Monthly rent (₹)"} hint={Number(d.price) ? (sale ? priceLabel(Number(d.price)) : `${inr(Number(d.price))}/month`) : undefined}>
               <input className="input text-lg font-semibold" inputMode="numeric" value={String(d.price)} onChange={(e) => set("price", e.target.value.replace(/\D/g, ""))} />
             </Field>
@@ -219,7 +219,7 @@ export function ListingWizard({ initial, isAgent }: { initial?: ListingDraft; is
           )}
           <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={!!d.negotiable} onChange={(e) => set("negotiable", e.target.checked)} /> Price is negotiable</label>
           {!sale && (
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div><p className="label">Preferred tenants</p>{choice("tenant_pref", [["any", "Anyone"], ["family", "Family"], ["bachelors", "Bachelors"], ["women", "Women only"]])}</div>
               <Field label="Available from"><input type="date" className="input" value={String(d.available_from)} onChange={(e) => set("available_from", e.target.value)} /></Field>
               <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={!!d.pets_allowed} onChange={(e) => set("pets_allowed", e.target.checked)} /> Pets allowed</label>

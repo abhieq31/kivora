@@ -119,7 +119,7 @@ async function Detail({ params, searchParams }: Props) {
 
       <Gallery photos={p.photos} alt={title(p)} />
 
-      <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_380px]">
+      <div className="mt-6 grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[1fr_380px]">
         <div className="min-w-0 space-y-10">
           <header>
             <div className="flex flex-wrap items-center gap-2">
@@ -185,7 +185,7 @@ async function Detail({ params, searchParams }: Props) {
 
           <section>
             <h2 className="h-section">Facts & features</h2>
-            <div className="mt-4 grid gap-x-10 gap-y-6 sm:grid-cols-2">
+            <div className="mt-4 grid grid-cols-1 gap-x-10 gap-y-6 sm:grid-cols-2">
               <FactGroup title="Property" rows={[
                 ["Type", PROPERTY_TYPES[p.property_type]],
                 ["Carpet area", sqft(p.carpet_sqft)],

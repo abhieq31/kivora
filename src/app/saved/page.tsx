@@ -45,7 +45,7 @@ async function Body() {
       <section className="mt-10">
         <h2 className="h-section">Saved homes ({homes.length})</h2>
         {homes.length === 0 ? <p className="mt-2 text-sm text-muted">Tap the heart on any home to save it here. <Link href="/buy" className="text-brand underline">Start browsing</Link></p> : (
-          <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">{homes.map((h) => <PropertyCard key={h.id} l={h} saved />)}</div>
+          <div className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">{homes.map((h) => <PropertyCard key={h.id} l={h} saved />)}</div>
         )}
       </section>
     </>

@@ -44,7 +44,7 @@ async function Body() {
 
   return (
     <>
-      <div className="mt-6 grid gap-3 sm:grid-cols-4">
+      <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-4">
         {[["Active leases", ls.filter((l) => new Date(l.end_date) >= now).length], ["Monthly rent roll", inr(monthly)], ["Unpaid this month", due.length], ["New applications", apps.filter((a) => a.status === "submitted").length]].map(([k, v]) => (
           <div key={k as string} className="card p-4"><p className="text-xs text-muted">{k}</p><p className="text-2xl font-bold">{v}</p></div>
         ))}

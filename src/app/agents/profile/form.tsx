@@ -10,7 +10,7 @@ type Init = Partial<Record<"name" | "agency" | "phone" | "email" | "city" | "loc
 export function AgentProfileForm({ initial }: { initial: Init }) {
   const [state, action] = useActionState(saveAgentProfile, null);
   return (
-    <form action={action} className="card grid gap-4 p-6 sm:grid-cols-2">
+    <form action={action} className="card grid grid-cols-1 gap-4 p-6 sm:grid-cols-2">
       <Field label="Full name"><input name="name" className="input" defaultValue={initial.name} required /></Field>
       <Field label="Agency"><input name="agency" className="input" defaultValue={initial.agency} /></Field>
       <Field label="Mobile"><input name="phone" className="input" defaultValue={initial.phone} required inputMode="tel" /></Field>

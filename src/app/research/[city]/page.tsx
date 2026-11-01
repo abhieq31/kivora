@@ -45,7 +45,7 @@ async function Body({ params }: { params: PageProps<"/research/[city]">["params"
     <>
       <p className="text-sm text-muted"><Link href="/research" className="hover:underline">Market trends</Link> › {c.name}</p>
       <h1 className="mt-1 text-4xl font-extrabold tracking-tight">{c.name} housing market</h1>
-      <div className="mt-8 grid gap-6 lg:grid-cols-2">
+      <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
         <div className="card p-5">
           <p className="font-semibold">Median sale price per sq ft</p>
           <LineChart series={[{ name: c.name, color: "#3b3fd8", points: sale.map((t) => ({ x: t.month, y: t.ppsf })) }]} format={(n) => inr(n)} xLabel={monthLabel} />

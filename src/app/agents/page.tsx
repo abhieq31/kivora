@@ -59,7 +59,7 @@ async function Results({ searchParams }: { searchParams: SP }) {
   return (
     <>
       <p className="mb-4 text-sm text-muted">{agents.length} agents{city ? ` in ${CITY_BY_SLUG[city].name}` : ""}</p>
-      {agents.length ? <div className="grid gap-4 md:grid-cols-2">{agents.map((a) => <AgentCard key={a.id} a={a} />)}</div> : <p className="text-muted">No agents match.</p>}
+      {agents.length ? <div className="grid grid-cols-1 gap-4 md:grid-cols-2">{agents.map((a) => <AgentCard key={a.id} a={a} />)}</div> : <p className="text-muted">No agents match.</p>}
     </>
   );
 }

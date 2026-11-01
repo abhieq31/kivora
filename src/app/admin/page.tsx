@@ -37,7 +37,7 @@ async function Body() {
   ]);
   return (
     <>
-      <div className="mt-6 grid gap-3 sm:grid-cols-3 lg:grid-cols-6">
+      <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {Object.entries(stats).map(([k, v]) => <div key={k} className="card p-4"><p className="text-xs capitalize text-muted">{k.replace("_", " ")}</p><p className="text-2xl font-bold">{v}</p></div>)}
       </div>
       <h2 className="h-section mt-10">Service requests (revenue)</h2>

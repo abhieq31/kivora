@@ -20,7 +20,7 @@ export default function Page() {
           Every state keeps a record of who owns which piece of land — 7/12 in Gujarat and Maharashtra, Khatauni in UP, Patta in Tamil Nadu, RTC in Karnataka.
           Pick your state to see what the record is called, how to read it and the official portal to check it on.
         </p>
-        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {LAND_RECORDS.map((r) => (
             <Link key={r.slug} href={`/land-records/${r.slug}`} className="card p-4 transition hover:border-brand hover:shadow-md">
               <p className="flex items-center gap-2 text-lg font-bold"><FileSearch className="h-5 w-5 text-brand" /> {r.state}</p>

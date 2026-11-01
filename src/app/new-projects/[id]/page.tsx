@@ -44,7 +44,7 @@ async function Detail({ params }: { params: PageProps<"/new-projects/[id]">["par
   return (
     <div className="mx-auto max-w-7xl px-4 py-6">
       <Gallery photos={p.photos} alt={p.name} />
-      <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_360px]">
+      <div className="mt-6 grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[1fr_360px]">
         <div className="space-y-8">
           <header>
             <p className="text-sm font-semibold text-brand">{p.status === "ready" ? "Ready to move" : "Under construction"}{p.is_demo && " · Demo data"}</p>
@@ -69,7 +69,7 @@ async function Detail({ params }: { params: PageProps<"/new-projects/[id]">["par
           {units.length > 0 && (
             <section>
               <h2 className="h-section">Available units ({units.length})</h2>
-              <div className="mt-4 grid gap-4 sm:grid-cols-2">{units.map((u) => <PropertyCard key={u.id} l={u} compact />)}</div>
+              <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">{units.map((u) => <PropertyCard key={u.id} l={u} compact />)}</div>
             </section>
           )}
           <section><h2 className="h-section">Location</h2><div className="mt-3"><PointMap lat={p.lat} lng={p.lng} label={p.name} /></div></section>

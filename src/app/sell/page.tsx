@@ -18,7 +18,7 @@ export default function SellPage() {
           </div>
         </div>
       </section>
-      <section className="mx-auto grid max-w-6xl gap-6 px-4 py-14 md:grid-cols-2">
+      <section className="mx-auto grid grid-cols-1 max-w-6xl gap-6 px-4 py-14 md:grid-cols-2">
         <div className="card p-8">
           <Megaphone className="h-9 w-9 text-brand" />
           <h2 className="mt-4 text-2xl font-bold">Sell it yourself</h2>
@@ -44,7 +44,7 @@ export default function SellPage() {
       </section>
       <section className="mx-auto max-w-6xl px-4">
         <h2 className="text-2xl font-bold">Selling a home in India: the checklist</h2>
-        <ol className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ol className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {[
             ["Gather documents", "Sale deed / title chain, Index-II or registration copy, latest property tax receipt, society NOC and share certificate, OC/CC for newer buildings."],
             ["Clear dues", "Pay property tax, society maintenance and utility bills. Get a loan closure letter and collect originals if the home is mortgaged."],

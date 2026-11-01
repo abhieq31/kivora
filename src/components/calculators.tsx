@@ -40,7 +40,7 @@ export function EmiCalculator({ initialAmount = 50_00_000 }: { initialAmount?: n
     return rows;
   }, [amount, rate, years, m]);
   return (
-    <div className="grid gap-8 lg:grid-cols-2">
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
       <div className="space-y-6">
         <Slider label="Loan amount" value={amount} min={5_00_000} max={5_00_00_000} step={50_000} onChange={setAmount} fmt={priceLabel} />
         <Slider label="Interest rate (p.a.)" value={rate} min={6.5} max={14} step={0.05} onChange={setRate} fmt={(n) => `${n.toFixed(2)}%`} />
@@ -77,7 +77,7 @@ export function AffordabilityCalculator() {
   const [years, setYears] = useState(20);
   const a = affordability({ monthlyIncome: income, existingEmis: emis, savings, ratePct: rate, years });
   return (
-    <div className="grid gap-8 lg:grid-cols-2">
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
       <div className="space-y-6">
         <Slider label="Monthly take-home income" value={income} min={25_000} max={10_00_000} step={5_000} onChange={setIncome} fmt={inr} />
         <Slider label="Existing EMIs" value={emis} min={0} max={3_00_000} step={1_000} onChange={setEmis} fmt={inr} />
@@ -110,7 +110,7 @@ export function StampDutyCalculator() {
   const [buyer, setBuyer] = useState<"male" | "female" | "joint">("male");
   const c = purchaseCosts(price, state, buyer);
   return (
-    <div className="grid gap-8 lg:grid-cols-2">
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
       <div className="space-y-5">
         <label className="block"><span className="label">State</span>
           <select className="input" value={state} onChange={(e) => setState(e.target.value)}>{states.map((s) => <option key={s}>{s}</option>)}</select>
@@ -172,7 +172,7 @@ export function RentVsBuy() {
   }, [price, rent, years, rate, growth, rentGrowth, invest]);
   const buyWins = r.buyWealth > r.rentWealth;
   return (
-    <div className="grid gap-8 lg:grid-cols-2">
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
       <div className="space-y-5">
         <Slider label="Home price" value={price} min={20_00_000} max={10_00_00_000} step={1_00_000} onChange={setPrice} fmt={priceLabel} />
         <Slider label="Rent for a similar home" value={rent} min={5_000} max={3_00_000} step={1_000} onChange={setRent} fmt={inr} />
@@ -204,7 +204,7 @@ export function LoanLeadForm() {
   const [state, action] = useActionState(requestLoanCallback, null);
   if (state?.ok) return <p className="rounded-xl bg-emerald-50 p-4 text-emerald-800">{state.message}</p>;
   return (
-    <form action={action} className="grid gap-3 sm:grid-cols-3">
+    <form action={action} className="grid grid-cols-1 gap-3 sm:grid-cols-3">
       <input name="name" className="input" placeholder="Name" required />
       <input name="phone" className="input" placeholder="Mobile" required inputMode="tel" />
       <select name="city" className="input" required defaultValue=""><option value="" disabled>City</option>{[...CITIES].sort((a, b) => a.name.localeCompare(b.name)).map((c) => <option key={c.slug} value={c.slug}>{c.name}</option>)}</select>
