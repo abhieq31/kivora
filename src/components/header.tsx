@@ -16,7 +16,7 @@ export const NAV = [
 export const NAV_RIGHT = [
   { href: "/land-records", label: "Land records" },
   { href: "/landlords", label: "Manage rentals" },
-  { href: "/research", label: "Market trends" },
+  { href: "/agreements", label: "Rent agreement" },
 ];
 
 export function Header() {

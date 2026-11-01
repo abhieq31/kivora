@@ -6,6 +6,7 @@ import { connection } from "next/server";
 import { BadgeCheck, Bath, BedDouble, Building, CalendarClock, Car, Compass, Eye, Layers, Ruler, Sofa, TrendingDown, TrendingUp } from "lucide-react";
 import { getProperty, nearbyClosed, priceHistory, propertyEstimates, recordView, similarHomes, type PropertyDetail } from "@/lib/queries/properties";
 import { trend } from "@/lib/queries/market";
+import { landlordRating } from "@/lib/queries/agreements";
 import { getUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { savedIds } from "@/lib/queries/user";
@@ -64,7 +65,7 @@ async function Detail({ params, searchParams }: Props) {
   const sp = await searchParams;
   const user = await getUser();
   const q = await db();
-  const [history, est, similar, closed, saleTrend, rentTrend, saved, applied] = await Promise.all([
+  const [history, est, similar, closed, saleTrend, rentTrend, saved, applied, , ownerRating] = await Promise.all([
     priceHistory(id),
     propertyEstimates(p),
     similarHomes(p),
@@ -74,6 +75,7 @@ async function Detail({ params, searchParams }: Props) {
     savedIds(user?.id),
     user ? q("select 1 from applications where property_id = $1 and user_id = $2", [id, user.id]) : Promise.resolve([]),
     recordView(id),
+    p.posted_by === "owner" && p.listing_type === "rent" ? landlordRating(p.owner_id) : Promise.resolve(null),
   ]);
   const city = CITY_BY_SLUG[p.city];
   const sale = p.listing_type === "sale";
@@ -132,6 +134,7 @@ async function Detail({ params, searchParams }: Props) {
                   Owner listing · you save ~{sale ? priceLabel(p.price * 0.01) : inr(p.price)} brokerage
                 </span>
               )}
+              {ownerRating && <span className="rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-800">★ {ownerRating.avg} from {ownerRating.n} verified tenant{ownerRating.n > 1 ? "s" : ""}</span>}
               {p.is_demo && <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">Demo data</span>}
             </div>
             <div className="mt-3 flex flex-wrap items-end gap-x-6 gap-y-2">
@@ -280,7 +283,7 @@ async function Detail({ params, searchParams }: Props) {
             {sale && <Link href={`/home-loans?amount=${Math.round(p.price * 0.8)}`} className="mt-4 inline-block text-sm font-semibold text-brand hover:underline">Compare home loan offers →</Link>}
           </section>
 
-          <RecordsCheck state={city?.state ?? ""} sale={sale} surveyNo={p.survey_no} />
+          <RecordsCheck state={city?.state ?? ""} sale={sale} surveyNo={p.survey_no} propertyId={p.id} />
 
           <section>
             <h2 className="h-section">Neighbourhood: {p.locality}</h2>

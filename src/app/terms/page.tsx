@@ -14,6 +14,8 @@ export default function Page() {
         <p>Nakshly Estimates, market trends and calculators are informational and not financial, legal or valuation advice.</p>
         <p>You must not post fake or duplicate listings, misrepresent your role (for example an agent posting as an owner), scrape the platform, or use contact details for spam.</p>
         <p>We may remove listings or accounts that break these terms. These terms are governed by the laws of India.</p>
+        <p><b>Agreements and paperwork.</b> Nakshly&apos;s agreement template and state guides are general information, not legal advice. You are responsible for the terms you agree, for paying stamp duty and registration where required, and for police tenant registration. Fixed-fee services are performed by Nakshly or its partners and are payable after delivery.</p>
+        <p><b>Reviews.</b> Only parties to an agreement both accepted on Nakshly can review each other. Reviews must be truthful and about the tenancy; we may remove abusive or false reviews.</p>
       </article>
       <Footer />
     </>

@@ -72,6 +72,22 @@ Each loop is built into the product. None needs ad spend.
 
 **What to measure each week** (all tagged with `utm_source`): share of new users from `board`, `whatsapp` and referrals; owner listings per week; enquiries per listing; service requests per 100 closed rentals.
 
+## 4b. Getting the first listings (cold start)
+
+We don't scrape OLX or 99acres. Their terms forbid it, and the phone numbers in those ads belong to people who never agreed to be on Nakshly. Instead, every route makes it cheap for an owner to move their own ad over:
+
+| Channel | What's in the product | Why it works |
+|---|---|---|
+| **Paste your ad** | Listing wizard step 1: paste the OLX, Facebook or WhatsApp ad and 10+ fields fill themselves (`src/lib/ad-parse.ts`) | Owners already wrote the ad, so moving it takes 2 minutes |
+| **Housing societies** | `/societies`: RWA sign-up, a printable QR notice for the notice board, help-desk day | One secretary reaches 100–500 owners, and societies want brokers out and tenants verified |
+| **Founding owners** | `/list-free`: brokerage-savings calculator, first 500 owners per city get a free tenant verification and a Featured badge | Costs ₹299 per owner and buys a real listing |
+| **Founding agents** | `/pros`: Pro free for 3 months if they publish their fee and RERA number | Agents bring inventory and get leads; fee transparency keeps the brand promise |
+| **Free rent agreements** | `/agreements`: both sides agree online in minutes, with the state's steps | Tenants who found a home elsewhere still come to Nakshly for the paperwork, and every agreement creates two accounts |
+| **Agreement checker** | `/agreements/check`: 9 questions, or an AI review of a photo or PDF in any Indian language | Every tenant with a bad agreement is a future user and a story to share |
+| **Offline loops** | QR To-Let boards, society notices | Every board and notice advertises Nakshly to passers-by |
+
+Demo listings stay labelled **Demo** until a city has real supply. The home page says so.
+
 ## 5. Launch plan
 
 A map-based marketplace only works when the map is full. The app covers all of India, but launch should go one city at a time:

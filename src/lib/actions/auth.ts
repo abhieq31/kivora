@@ -1,7 +1,7 @@
 "use server";
 
 import { randomBytes } from "node:crypto";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { db } from "../db";
@@ -22,6 +22,10 @@ export async function signup(_: FormState, fd: FormData): Promise<FormState> {
   const parsed = signupSchema.safeParse(o);
   if (!parsed.success) return { ok: false, error: firstError(parsed.error) };
   const q = await db();
+  const ip = (await headers()).get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  const [{ n }] = await q<{ n: number }>("select count(*)::int as n from login_attempts where key = $1 and at > now() - interval '1 hour'", [`signup:${ip}`]);
+  if (n >= 10) return { ok: false, error: "Too many sign-ups from this network. Try again in an hour." };
+  await q("insert into login_attempts (key) values ($1)", [`signup:${ip}`]);
   const exists = await q("select 1 from users where email = $1", [parsed.data.email]);
   if (exists.length) return { ok: false, error: "An account with this email already exists. Sign in instead." };
   const ref = (await cookies()).get("nk_ref")?.value;
@@ -42,8 +46,16 @@ export async function login(_: FormState, fd: FormData): Promise<FormState> {
   const o = formObject(fd);
   const email = String(o.email ?? "").toLowerCase();
   const q = await db();
+  // Slow down password guessing: 8 failures per email per 15 minutes.
+  const key = `login:${email}`;
+  const [{ n }] = await q<{ n: number }>("select count(*)::int as n from login_attempts where key = $1 and at > now() - interval '15 minutes'", [key]);
+  if (n >= 8) return { ok: false, error: "Too many attempts. Wait 15 minutes and try again." };
   const [u] = await q<{ id: number; password_hash: string }>("select id, password_hash from users where email = $1", [email]);
-  if (!u || !(await verifyPassword(String(o.password ?? ""), u.password_hash))) return { ok: false, error: "Wrong email or password." };
+  if (!u || !(await verifyPassword(String(o.password ?? ""), u.password_hash))) {
+    await q("insert into login_attempts (key) values ($1)", [key]);
+    if (Math.random() < 0.02) await q("delete from login_attempts where at < now() - interval '2 days'");
+    return { ok: false, error: "Wrong email or password." };
+  }
   await createSession(u.id);
   redirect(safeNext(o.next));
 }

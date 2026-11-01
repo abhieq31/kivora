@@ -278,6 +278,45 @@ create table if not exists share_events (
   property_id int references properties(id) on delete cascade,
   channel text not null
 );
+create table if not exists agreements (
+  id serial primary key,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  created_by int not null references users(id) on delete cascade,
+  landlord_id int references users(id) on delete set null,
+  tenant_id int references users(id) on delete set null,
+  property_id int references properties(id) on delete set null,
+  state text not null,
+  city text not null,
+  terms jsonb not null,
+  token text not null unique,
+  landlord_accepted_at timestamptz,
+  tenant_accepted_at timestamptz,
+  steps jsonb not null default '{}'
+);
+create table if not exists agreement_notes (
+  id serial primary key,
+  created_at timestamptz not null default now(),
+  agreement_id int not null references agreements(id) on delete cascade,
+  user_id int not null references users(id) on delete cascade,
+  kind text not null default 'note',
+  body text not null
+);
+create table if not exists tenancy_reviews (
+  id serial primary key,
+  created_at timestamptz not null default now(),
+  agreement_id int not null references agreements(id) on delete cascade,
+  author_id int not null references users(id) on delete cascade,
+  about text not null,
+  rating int not null check (rating between 1 and 5),
+  body text not null default '',
+  unique (agreement_id, author_id)
+);
+create table if not exists login_attempts (
+  key text not null,
+  at timestamptz not null default now()
+);
+create index if not exists login_attempts_key on login_attempts (key, at);
 `;
 
 export function statements(sql: string) {

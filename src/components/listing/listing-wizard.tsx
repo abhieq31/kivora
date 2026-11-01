@@ -2,7 +2,9 @@
 
 import { useActionState, useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
-import { Check, ImagePlus, Loader2, X } from "lucide-react";
+import { Camera, Check, ImagePlus, Loader2, X } from "lucide-react";
+import { preparePhoto, SHOT_LIST } from "@/lib/photo-quality";
+import { parseAd } from "@/lib/ad-parse";
 import { saveListing } from "@/lib/actions/listings";
 import { CITIES, CITY_BY_SLUG, findMarket, localityNames } from "@/lib/geo";
 import { AMENITIES, FACINGS } from "@/lib/constants";
@@ -28,6 +30,7 @@ export function ListingWizard({ initial, isAgent }: { initial?: ListingDraft; is
   const [state, action] = useActionState(saveListing, null);
   const [err, setErr] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [quality, setQuality] = useState<Record<string, { score: number; issues: string[] }>>({});
   const [suggest, setSuggest] = useState<{ value: number; low: number; high: number; confidence: string } | null>(null);
   const set = (k: string, v: ListingDraft[string]) => setD((x) => ({ ...x, [k]: v }));
 
@@ -86,11 +89,23 @@ export function ListingWizard({ initial, isAgent }: { initial?: ListingDraft; is
     setUploading(true);
     setErr(null);
     const fd = new FormData();
-    [...files].slice(0, 10).forEach((f) => fd.append("file", f));
+    const checks: { score: number; issues: string[] }[] = [];
+    try {
+      for (const f of [...files].slice(0, 10)) {
+        const c = await preparePhoto(f);
+        if (c.score < 50) throw new Error(`${f.name}: ${c.issues.join("; ")}. Please retake it.`);
+        checks.push({ score: c.score, issues: c.issues });
+        fd.append("file", new File([c.blob], f.name.replace(/\.\w+$/, "") + ".jpg", { type: "image/jpeg" }));
+      }
+    } catch (e) {
+      setUploading(false);
+      return setErr((e as Error).message);
+    }
     const r = await fetch("/api/upload", { method: "POST", body: fd });
     const j = await r.json();
     setUploading(false);
     if (!r.ok) return setErr(j.error ?? "Upload failed");
+    setQuality((q) => ({ ...q, ...Object.fromEntries((j.urls as string[]).map((u, i) => [u, checks[i]])) }));
     set("photos", [...(d.photos as string[]), ...j.urls].slice(0, 30));
   };
 
@@ -121,6 +136,7 @@ export function ListingWizard({ initial, isAgent }: { initial?: ListingDraft; is
 
       {step === 0 && (
         <div className="space-y-6">
+          {!initial?.id && <AdImport onParsed={(ad) => setD((x) => ({ ...x, ...Object.fromEntries(Object.entries(ad).filter(([, v]) => v !== undefined).map(([k, v]) => [k, typeof v === "number" ? String(v) : v])) }))} city={String(d.city)} />}
           <div><p className="label">I want to</p>{choice("listing_type", [["sale", "Sell"], ["rent", "Rent out"]])}</div>
           <div><p className="label">Property type</p>{choice("property_type", [["apartment", "Apartment"], ["builder_floor", "Builder floor"], ["independent_house", "Independent house"], ["villa", "Villa"], ...(sale ? [["plot", "Plot / land"] as [string, string]] : [])])}</div>
           <div><p className="label">I am the</p>{choice("posted_by", [["owner", "Owner"], ...(isAgent ? [["agent", "Agent"] as [string, string]] : []), ["builder", "Builder"]])}
@@ -238,6 +254,7 @@ export function ListingWizard({ initial, isAgent }: { initial?: ListingDraft; is
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={p} alt="" className="h-full w-full object-cover" />
                   {i === 0 && <span className="absolute left-1 top-1 rounded bg-black/60 px-1.5 text-xs text-white">Cover</span>}
+                  {quality[p]?.issues.length ? <span title={quality[p].issues.join("\n")} className="absolute bottom-1 left-1 right-1 truncate rounded bg-amber-500/90 px-1.5 text-[11px] text-white">{quality[p].issues[0]}</span> : null}
                   <div className="absolute right-1 top-1 flex gap-1">
                     {i > 0 && <button type="button" onClick={() => { const a = [...(d.photos as string[])]; [a[0], a[i]] = [a[i], a[0]]; set("photos", a); }} className="rounded bg-white/90 px-1.5 text-xs">Make cover</button>}
                     <button type="button" aria-label="Remove photo" onClick={() => set("photos", (d.photos as string[]).filter((x) => x !== p))} className="rounded bg-white/90 p-0.5"><X className="h-4 w-4" /></button>
@@ -245,11 +262,20 @@ export function ListingWizard({ initial, isAgent }: { initial?: ListingDraft; is
                 </div>
               ))}
               <label className="grid aspect-[4/3] cursor-pointer place-items-center rounded-lg border-2 border-dashed border-line text-sm text-muted hover:border-brand">
-                {uploading ? <Loader2 className="h-6 w-6 animate-spin" /> : <span className="flex flex-col items-center gap-1"><ImagePlus className="h-6 w-6" /> Add photos</span>}
-                <input type="file" accept="image/jpeg,image/png,image/webp" multiple className="hidden" onChange={(e) => upload(e.target.files)} />
+                {uploading ? <Loader2 className="h-6 w-6 animate-spin" /> : <span className="flex flex-col items-center gap-1"><ImagePlus className="h-6 w-6" /> From gallery</span>}
+                <input type="file" accept="image/*" multiple className="hidden" disabled={uploading} onChange={(e) => { upload(e.target.files); e.target.value = ""; }} />
+              </label>
+              <label className="grid aspect-[4/3] cursor-pointer place-items-center rounded-lg border-2 border-dashed border-brand/40 bg-brand-soft/40 text-sm text-brand sm:hidden">
+                <span className="flex flex-col items-center gap-1"><Camera className="h-6 w-6" /> Take photo</span>
+                <input type="file" accept="image/*" capture="environment" className="hidden" disabled={uploading} onChange={(e) => { upload(e.target.files); e.target.value = ""; }} />
               </label>
             </div>
-            <p className="mt-2 text-xs text-muted">JPG, PNG or WebP up to 4 MB each. Bright, wide shots of every room get the most views.</p>
+            <p className="mt-2 text-xs text-muted">We straighten and resize each photo and flag blurry or dark shots before they go live. Homes with 8+ bright, landscape photos get far more enquiries.</p>
+            <details className="mt-3 rounded-lg bg-paper p-3 text-sm">
+              <summary className="cursor-pointer font-semibold">Shot list for great photos</summary>
+              <ol className="mt-2 list-decimal space-y-1 pl-5">{SHOT_LIST.map(([t, tip]) => <li key={t}><b>{t}</b> — <span className="text-muted">{tip}</span></li>)}</ol>
+              <p className="mt-2 text-muted">Clean and declutter first, shoot in daylight, phone held sideways at chest height. Or <a href="/services?for=photoshoot" className="font-semibold text-brand underline">book a pro photographer for ₹999</a>.</p>
+            </details>
           </div>
           {!plot && (
             <div>
@@ -302,6 +328,34 @@ export function ListingWizard({ initial, isAgent }: { initial?: ListingDraft; is
           <button type="button" className="btn px-6" onClick={() => go(step + 1)}>Continue</button>
         </div>
       )}
+    </div>
+  );
+}
+
+/** Paste an existing OLX / Facebook / WhatsApp ad to pre-fill the wizard. */
+function AdImport({ onParsed, city }: { onParsed: (ad: ReturnType<typeof parseAd>) => void; city: string }) {
+  const [open, setOpen] = useState(false);
+  const [text, setText] = useState("");
+  const [filled, setFilled] = useState<number | null>(null);
+  if (!open) {
+    return (
+      <button type="button" onClick={() => setOpen(true)} className="w-full rounded-xl border border-dashed border-brand/50 bg-brand-soft/40 p-4 text-left text-sm">
+        <b className="text-brand">Already advertised it on OLX, Facebook or WhatsApp?</b> Paste that ad and we&apos;ll fill in the form for you.
+      </button>
+    );
+  }
+  return (
+    <div className="rounded-xl border border-line p-4">
+      <p className="label">Paste your ad</p>
+      <textarea rows={5} className="input" value={text} onChange={(e) => setText(e.target.value)} placeholder="e.g. 2BHK semi furnished flat for rent in Gotri, 3rd floor, 950 sq ft. Rent 15k, deposit 30k. Family only." />
+      <div className="mt-2 flex items-center gap-3">
+        <button type="button" className="btn-outline" disabled={text.trim().length < 10} onClick={() => {
+          const ad = parseAd(text, city || undefined);
+          onParsed(ad);
+          setFilled(Object.values(ad).filter((v) => v !== undefined).length - 1);
+        }}>Fill the form</button>
+        {filled != null && <span className="text-sm text-good">Filled {filled} details — check each step before publishing.</span>}
+      </div>
     </div>
   );
 }

@@ -33,6 +33,16 @@ export const SERVICES: Service[] = [
     includes: ["Sale deed drafted and reviewed", "Stamp duty and registration fee calculated (paid to government at actuals)", "Sub-registrar appointment booked and attended"],
   },
   {
+    id: "photoshoot", name: "Professional photoshoot", price: 999, audience: "owners",
+    pitch: "A photographer shoots your home in an hour — the single biggest boost to enquiries.",
+    includes: ["20+ edited, wide-angle HDR photos", "Floor sketch with room sizes", "Photos live on your listing within 48 hours"],
+  },
+  {
+    id: "society-drive", name: "Society drive", price: null, audience: "owners",
+    pitch: "For RWA secretaries: we help every owner in your society list vacant flats free and register tenants properly.",
+    includes: ["A notice with QR code for your notice board", "Help desk day in your society", "Police tenant registration done for every Nakshly tenant"],
+  },
+  {
     id: "home-loan", name: "Home loan", price: null, audience: "buyers",
     pitch: "Compare offers from banks and HFCs. Free to you — the lender pays us when your loan is disbursed.",
     includes: ["Eligibility check across lenders", "Document pickup", "Help until disbursement"],

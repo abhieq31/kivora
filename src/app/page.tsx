@@ -25,6 +25,7 @@ export default function HomePage() {
             Talk to owners directly. See price history, the Nakshly Estimate and the land records before you pay a rupee.
           </p>
           <HeroSearch />
+          <p className="mt-4 text-sm text-white/70">Early access: listings marked <b>Demo</b> are samples while we bring owners on board city by city. <Link href="/list-free" className="underline">List your home free</Link>.</p>
         </div>
       </section>
 
@@ -73,6 +74,25 @@ export default function HomePage() {
             </div>
             <p className="mt-3 text-xs text-muted">Illustration</p>
           </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pt-16">
+        <div className="grid grid-cols-1 items-center gap-8 rounded-2xl border border-line p-8 md:grid-cols-2">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-wide text-brand">Renting, made fair</p>
+            <h2 className="mt-2 text-3xl font-bold tracking-tight">A rent agreement in 10 minutes — not 10 days through a broker.</h2>
+            <p className="mt-3 text-muted">Fair default terms, your state&apos;s stamp duty and registration steps, police tenant registration, and a shared home diary so nobody can rewrite what was agreed.</p>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Link href="/agreements/new" className="btn">Make an agreement</Link>
+              <Link href="/agreements/check" className="btn-ghost">Is my agreement fair?</Link>
+            </div>
+          </div>
+          <ul className="space-y-3 text-sm">
+            {["Deposit returned within a fixed number of days, itemised deductions only", "24 hours' notice before the owner visits", "Owner pays structural, pump and plumbing repairs", "No eviction without the agreed notice", "Verified reviews of owners and tenants after each tenancy"].map((t) => (
+              <li key={t} className="flex gap-2"><span className="text-good">✓</span>{t}</li>
+            ))}
+          </ul>
         </div>
       </section>
 

@@ -4,8 +4,8 @@ import { LogoMark } from "./logo";
 
 const COLS: [string, [string, string][]][] = [
   ["Buy & rent", [["/buy", "Homes for sale"], ["/rent", "Homes for rent"], ["/sold", "Recently sold"], ["/new-projects", "New projects"], ["/research", "Market trends"]]],
-  ["Sell & own", [["/sell", "Sell your home"], ["/post-property", "Post a property"], ["/home-value", "Home value estimate"], ["/landlords", "Rental manager"], ["/agents", "Find an agent"]]],
-  ["Tools", [["/home-loans", "Home loan EMI"], ["/home-loans/affordability", "Affordability"], ["/calculators/stamp-duty", "Stamp duty"], ["/calculators/rent-vs-buy", "Rent vs buy"], ["/land-records", "Check land records (7/12, Khatauni…)"], ["/services", "Rent agreement & title check"]]],
+  ["Sell & own", [["/sell", "Sell your home"], ["/list-free", "List free — no brokerage"], ["/societies", "For housing societies"], ["/pros", "For agents & builders"], ["/home-value", "Home value estimate"], ["/landlords", "Rental manager"], ["/agents", "Find an agent"]]],
+  ["Tools", [["/home-loans", "Home loan EMI"], ["/home-loans/affordability", "Affordability"], ["/calculators/stamp-duty", "Stamp duty"], ["/calculators/rent-vs-buy", "Rent vs buy"], ["/land-records", "Check land records (7/12, Khatauni…)"], ["/agreements", "Online rent agreement"], ["/agreements/check", "Is my agreement fair?"], ["/renters-rights", "Renting fairly"], ["/services", "Paperwork services"]]],
   ["Company", [["/about", "About Nakshly"], ["/about#data", "Data & methodology"], ["/invite", "Invite & earn"], ["/terms", "Terms"], ["/privacy", "Privacy"]]],
 ];
 

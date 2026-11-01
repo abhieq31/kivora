@@ -3,7 +3,7 @@ import { ExternalLink, FileCheck2 } from "lucide-react";
 import { BUY_CHECKLIST, LAND_BY_STATE, RENT_CHECKLIST } from "@/lib/land-records";
 
 /** "Check the records" — state-specific record names and official portals, shown on every listing. */
-export function RecordsCheck({ state, sale, surveyNo }: { state: string; sale: boolean; surveyNo: string }) {
+export function RecordsCheck({ state, sale, surveyNo, propertyId }: { state: string; sale: boolean; surveyNo: string; propertyId: number }) {
   const rec = LAND_BY_STATE[state];
   return (
     <section>
@@ -33,9 +33,14 @@ export function RecordsCheck({ state, sale, surveyNo }: { state: string; sale: b
       <ul className="mt-4 space-y-1.5 text-sm">
         {(sale ? BUY_CHECKLIST : RENT_CHECKLIST).map((c) => <li key={c} className="flex gap-2"><span className="text-good">✓</span>{c}</li>)}
       </ul>
-      <Link href={`/services?for=${sale ? "title-check" : "rent-agreement"}`} className="mt-4 inline-block text-sm font-semibold text-brand hover:underline">
-        {sale ? "Get a lawyer's title check — fixed fee →" : "Get the rent agreement made — fixed fee →"}
-      </Link>
+      {sale ? (
+        <Link href="/services?for=title-check" className="mt-4 inline-block text-sm font-semibold text-brand hover:underline">Get a lawyer&apos;s title check — fixed fee →</Link>
+      ) : (
+        <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm font-semibold">
+          <Link href={`/agreements/new?property=${propertyId}`} className="text-brand hover:underline">Make a fair rent agreement — free →</Link>
+          <Link href="/agreements/check" className="text-muted hover:underline">Check an agreement you were sent</Link>
+        </div>
+      )}
     </section>
   );
 }
