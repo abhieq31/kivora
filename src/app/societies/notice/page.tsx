@@ -1,4 +1,6 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import QRCode from "qrcode";
 import { LogoMark } from "@/components/logo";
 import { PrintButton } from "@/app/property/[slug]/board/print-button";
@@ -7,7 +9,12 @@ export const metadata: Metadata = { title: "Society notice", robots: { index: fa
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
-export default async function Page() {
+export default function Page() {
+  return <Suspense fallback={<div className="mx-auto aspect-[210/297] max-w-2xl animate-pulse bg-paper" />}><Notice /></Suspense>;
+}
+
+async function Notice() {
+  await connection();
   const link = `${SITE}/list-free?utm_source=society-notice`;
   const qr = await QRCode.toString(link, { type: "svg", margin: 0, color: { dark: "#14163a", light: "#ffffff" } });
   return (
