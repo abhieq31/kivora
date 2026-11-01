@@ -15,7 +15,7 @@ function makeComps(ppsf: number, n: number, growth = 0.08): Comp[] {
   });
 }
 
-describe("Kivora Estimate", () => {
+describe("Nakshly Estimate", () => {
   it("recovers the underlying price level from comparables", () => {
     const comps = makeComps(10000, 60);
     const e = estimate("sale", { propertyType: "apartment", bhk: 2, carpetSqft: 1000, floor: 5, ageYears: 5, lat: 12.97, lng: 77.59, locality: "A" }, comps, { now })!;

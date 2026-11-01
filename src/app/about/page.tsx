@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/footer";
 
-export const metadata: Metadata = { title: "About Kivora & our data" };
+export const metadata: Metadata = { title: "About Nakshly & our data" };
 
 export default function Page() {
   return (
     <>
       <article className="mx-auto max-w-3xl px-4 py-12 leading-relaxed">
-        <h1 className="text-4xl font-extrabold tracking-tight">About Kivora</h1>
-        <p className="mt-4 text-lg text-muted">Kivora is a home search, valuation and rental platform for India. Our aim: make the price of a home, the fee of an agent and the cost of moving in visible before anyone has to ask.</p>
+        <h1 className="text-4xl font-extrabold tracking-tight">About Nakshly</h1>
+        <p className="mt-4 text-lg text-muted">Nakshly is a home search, valuation and rental platform for India. Our aim: make the price of a home, the fee of an agent and the cost of moving in visible before anyone has to ask.</p>
         <h2 className="mt-10 text-2xl font-bold">What&apos;s different</h2>
         <ul className="mt-3 list-disc space-y-2 pl-6">
           <li><b>One home, one listing.</b> Owners verify once; duplicates get merged rather than multiplied.</li>
@@ -16,7 +16,7 @@ export default function Page() {
           <li><b>Transaction-based prices.</b> Trends and estimates use registered sales and signed agreements, not asking prices.</li>
           <li><b>Owner listings with zero brokerage</b> are marked clearly on every card.</li>
         </ul>
-        <h2 id="data" className="mt-10 scroll-mt-20 text-2xl font-bold">How the Kivora Estimate works</h2>
+        <h2 id="data" className="mt-10 scroll-mt-20 text-2xl font-bold">How the Nakshly Estimate works</h2>
         <ol className="mt-3 list-decimal space-y-2 pl-6">
           <li>We take comparable transactions within 6 km from the last three years.</li>
           <li>Each is normalised to a standard home by removing the effect of its size, floor, building age, furnishing, facing and property type.</li>

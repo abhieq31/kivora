@@ -255,6 +255,29 @@ create table if not exists home_owners (
   age_years int,
   label text not null default 'My home'
 );
+-- Added after launch: keep these as idempotent alters so existing databases upgrade in place.
+alter table properties add column if not exists survey_no text not null default '';
+alter table users add column if not exists ref_code text unique;
+alter table users add column if not exists referred_by int references users(id) on delete set null;
+create table if not exists service_requests (
+  id serial primary key,
+  created_at timestamptz not null default now(),
+  user_id int references users(id) on delete set null,
+  service text not null,
+  name text not null,
+  phone text not null,
+  city text not null default '',
+  property_id int references properties(id) on delete set null,
+  notes text not null default '',
+  price double precision,
+  status text not null default 'new'
+);
+create table if not exists share_events (
+  id serial primary key,
+  created_at timestamptz not null default now(),
+  property_id int references properties(id) on delete cascade,
+  channel text not null
+);
 `;
 
 export function statements(sql: string) {

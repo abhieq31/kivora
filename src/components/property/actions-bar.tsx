@@ -25,6 +25,22 @@ export function ShareButton({ title }: { title: string }) {
   );
 }
 
+/** WhatsApp is how India shares homes — one tap, prefilled, tagged so we can count it. */
+export function WhatsAppButton({ text }: { text: string }) {
+  return (
+    <button
+      className="btn-ghost text-[#128c4b]"
+      onClick={() => {
+        const url = `${location.origin}${location.pathname}?utm_source=whatsapp`;
+        window.open(`https://wa.me/?text=${encodeURIComponent(`${text}\n${url}`)}`, "_blank", "noopener");
+      }}
+    >
+      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.6 2.1 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg>
+      WhatsApp
+    </button>
+  );
+}
+
 export function ApplyButton({ propertyId, applied }: { propertyId: number; applied: boolean }) {
   const [done, setDone] = useState(applied);
   const [err, setErr] = useState<string | null>(null);

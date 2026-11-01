@@ -17,7 +17,7 @@ export default function Page({ searchParams }: { searchParams: SP }) {
       <section className="bg-paper">
         <div className="mx-auto max-w-6xl px-4 py-10">
           <h1 className="text-4xl font-extrabold tracking-tight">Find an agent who shows their fee</h1>
-          <p className="mt-2 max-w-2xl text-muted">Every agent on Kivora publishes their RERA agent registration and what they charge — before you call.</p>
+          <p className="mt-2 max-w-2xl text-muted">Every agent on Nakshly publishes their RERA agent registration and what they charge — before you call.</p>
           <Suspense fallback={null}><Filters searchParams={searchParams} /></Suspense>
         </div>
       </section>

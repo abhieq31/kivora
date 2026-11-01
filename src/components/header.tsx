@@ -14,6 +14,7 @@ export const NAV = [
   { href: "/new-projects", label: "New projects" },
 ];
 export const NAV_RIGHT = [
+  { href: "/land-records", label: "Land records" },
   { href: "/landlords", label: "Manage rentals" },
   { href: "/research", label: "Market trends" },
 ];
@@ -23,7 +24,7 @@ export function Header() {
     <header className="sticky top-0 z-[1100] border-b border-line bg-white">
       <div className="mx-auto flex h-16 max-w-[1600px] items-center gap-6 px-4">
         <MobileMenu items={[...NAV, ...NAV_RIGHT, { href: "/home-value", label: "Home value estimate" }]} />
-        <Link href="/" aria-label="Kivora home" className="shrink-0">
+        <Link href="/" aria-label="Nakshly home" className="shrink-0">
           <Logo />
         </Link>
         <nav className="hidden items-center gap-5 text-[15px] font-medium lg:flex">

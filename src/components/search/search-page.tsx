@@ -16,7 +16,7 @@ export function searchMetadata(mode: Mode) {
     const slug = (await params).city?.[0];
     const city = slug ? CITY_BY_SLUG[slug]?.name : null;
     const what = mode === "rent" ? "Flats & houses for rent" : mode === "sold" ? "Recently sold homes" : "Flats & houses for sale";
-    return { title: `${what} in ${city ?? "India"}`, description: `${what} in ${city ?? "India"} on a map, with price history, Kivora Estimates and owner listings.` };
+    return { title: `${what} in ${city ?? "India"}`, description: `${what} in ${city ?? "India"} on a map, with price history, Nakshly Estimates and owner listings.` };
   };
 }
 

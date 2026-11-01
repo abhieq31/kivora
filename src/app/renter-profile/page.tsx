@@ -13,7 +13,7 @@ export default function Page({ searchParams }: PageProps<"/renter-profile">) {
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-10">
       <h1 className="text-3xl font-bold tracking-tight">Your renter profile</h1>
-      <p className="mt-1 text-muted">Fill this once and apply to any rental on Kivora in one tap. Landlords see it only when you apply.</p>
+      <p className="mt-1 text-muted">Fill this once and apply to any rental on Nakshly in one tap. Landlords see it only when you apply.</p>
       <Suspense fallback={<div className="mt-6 h-96 animate-pulse rounded-xl bg-paper" />}><Body searchParams={searchParams} /></Suspense>
     </div>
   );

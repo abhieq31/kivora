@@ -1,8 +1,8 @@
-# Kivora
+# Nakshly
 
 **Homes for sale and rent across India — on a map, with real price history and an estimate on every home.**
 
-Kivora is a full-stack real estate marketplace for India. It covers buying, selling, renting, valuation, home loans, agents, new projects and landlord tools, adapted for how Indian property actually works: ₹ lakh/crore, BHK, carpet vs super built-up area, RERA registration, stamp duty by state, security deposits measured in months, owner listings with no brokerage, and agents who publish their fees.
+Nakshly is a full-stack real estate marketplace for India. It covers buying, selling, renting, valuation, home loans, agents, new projects and landlord tools, adapted for how Indian property actually works: ₹ lakh/crore, BHK, carpet vs super built-up area, RERA registration, stamp duty by state, security deposits measured in months, owner listings with no brokerage, and agents who publish their fees.
 
 > **Status:** working MVP with demo data. Everything labelled **Demo** (listings, transactions, agents, projects) is generated sample data with fictional names.
 
@@ -11,8 +11,8 @@ Kivora is a full-stack real estate marketplace for India. It covers buying, sell
 | Area | What's there |
 | --- | --- |
 | **Search** | Split map/list search for buy, rent and recently sold; price pins that collapse to dots when crowded; *search as I move the map*; filters for price, BHK, baths, home type, furnishing, possession, listed-by (owner/agent/builder), carpet area, tenant type, verified only; sort; pagination; save search; mobile map/list toggle |
-| **Home page** | Photo gallery + full-screen viewer, Kivora Estimate with range, confidence and the comparables used, price & listing history, locality price trend, EMI + stamp duty + registration + GST cost calculator (sale) or move-in cost (rent), neighbourhood map, nearby registered sales, similar homes, save/share, request a tour (date + in-person/video), contact, one-tap rental application |
-| **Kivora Estimate** | Comparable-sales model (`src/lib/estimate.ts`): normalises comps for size, floor, age, furnishing, Vastu facing, parking and type; fits local growth; weighted median by distance/recency/locality/BHK; range widens with dispersion |
+| **Home page** | Photo gallery + full-screen viewer, Nakshly Estimate with range, confidence and the comparables used, price & listing history, locality price trend, EMI + stamp duty + registration + GST cost calculator (sale) or move-in cost (rent), neighbourhood map, nearby registered sales, similar homes, save/share, request a tour (date + in-person/video), contact, one-tap rental application |
+| **Nakshly Estimate** | Comparable-sales model (`src/lib/estimate.ts`): normalises comps for size, floor, age, furnishing, Vastu facing, parking and type; fits local growth; weighted median by distance/recency/locality/BHK; range widens with dispersion |
 | **Sell** | Free home value tool, track your home's value over time, 6-step listing wizard (map pin, photo upload, live price suggestion), drafts, edit, price changes recorded in public history, mark sold/rented, pause, delete |
 | **Rent** | Universal renter profile, apply to any rental, landlord applications inbox (shortlist/accept/decline), leases with escalation, month-by-month rent ledger with overdue flags |
 | **Agents** | Directory and profiles with RERA agent number, published buy/sell and rental fees, deals, languages, localities, reviews (signed-in users, one each), contact |
@@ -46,9 +46,9 @@ Demo accounts (local defaults, change via `.env.local`):
 
 | Email | Password | Role |
 | --- | --- | --- |
-| admin@kivora.dev | kivora-admin | Admin (`/admin`) |
-| demo@kivora.dev | kivora-demo | Buyer/renter |
-| agent@kivora.dev | kivora-demo | Agent (owns the first Mumbai agent profile) |
+| admin@nakshly.dev | nakshly-admin | Admin (`/admin`) |
+| demo@nakshly.dev | nakshly-demo | Buyer/renter |
+| agent@nakshly.dev | nakshly-demo | Agent (owns the first Mumbai agent profile) |
 
 Reset local data: stop the server and delete `./.data`.
 

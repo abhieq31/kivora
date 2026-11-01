@@ -7,9 +7,9 @@ export async function seedDemo(q: Query, log: (s: string) => void = () => {}) {
   const data = generate();
 
   const users = [
-    { email: "admin@kivora.dev", name: "Kivora Admin", role: "admin", pw: process.env.SEED_ADMIN_PASSWORD ?? "kivora-admin" },
-    { email: "demo@kivora.dev", name: "Demo Buyer", role: "user", pw: process.env.SEED_DEMO_PASSWORD ?? "kivora-demo" },
-    { email: "agent@kivora.dev", name: "Demo Agent", role: "agent", pw: process.env.SEED_DEMO_PASSWORD ?? "kivora-demo" },
+    { email: "admin@nakshly.dev", name: "Nakshly Admin", role: "admin", pw: process.env.SEED_ADMIN_PASSWORD ?? "nakshly-admin" },
+    { email: "demo@nakshly.dev", name: "Demo Buyer", role: "user", pw: process.env.SEED_DEMO_PASSWORD ?? "nakshly-demo" },
+    { email: "agent@nakshly.dev", name: "Demo Agent", role: "agent", pw: process.env.SEED_DEMO_PASSWORD ?? "nakshly-demo" },
   ];
   const userIds: Record<string, number> = {};
   for (const u of users) {
@@ -28,7 +28,7 @@ export async function seedDemo(q: Query, log: (s: string) => void = () => {}) {
   }, data.agents, "id");
   const agentIds = agentRows.map((x) => x.id as number);
   // The demo agent login manages the first agent profile.
-  await q("update agents set user_id = $1 where id = $2", [userIds["agent@kivora.dev"], agentIds[0]]);
+  await q("update agents set user_id = $1 where id = $2", [userIds["agent@nakshly.dev"], agentIds[0]]);
   log(`agents ${agentIds.length}`);
 
   await bulkInsert(q, "agent_reviews", { agent_id: "int", author: "text", rating: "int", body: "text", deal_type: "text", created_at: "timestamptz" },

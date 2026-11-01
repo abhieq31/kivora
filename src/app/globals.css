@@ -78,3 +78,9 @@ body {
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
+
+/* Printable pages (To-Let board): drop the site chrome. */
+@media print {
+  body > header, footer { display: none !important; }
+  @page { size: A4; margin: 0; }
+}

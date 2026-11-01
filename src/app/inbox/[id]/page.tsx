@@ -53,7 +53,7 @@ async function Body({ params }: { params: PageProps<"/inbox/[id]">["params"] }) 
         })}
       </ol>
       {t.thread.to_user_id || iSent ? <Reply inquiryId={t.thread.id} /> : null}
-      {!t.thread.to_user_id && iSent && <p className="mt-3 text-xs text-muted">This lister hasn&apos;t joined Kivora yet, so they&apos;ll reach you by phone.</p>}
+      {!t.thread.to_user_id && iSent && <p className="mt-3 text-xs text-muted">This lister hasn&apos;t joined Nakshly yet, so they&apos;ll reach you by phone.</p>}
     </>
   );
 }

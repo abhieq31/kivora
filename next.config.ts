@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
   // PGlite ships WASM + data files; keep it out of the server bundle.
   serverExternalPackages: ["@electric-sql/pglite"],
   experimental: { serverActions: { bodySizeLimit: "2mb" } },
+  async rewrites() {
+    return [{ source: "/.well-known/assetlinks.json", destination: "/api/assetlinks" }];
+  },
   async headers() {
     return [
       {

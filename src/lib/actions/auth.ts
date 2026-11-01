@@ -1,5 +1,7 @@
 "use server";
 
+import { randomBytes } from "node:crypto";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { db } from "../db";
@@ -22,11 +24,18 @@ export async function signup(_: FormState, fd: FormData): Promise<FormState> {
   const q = await db();
   const exists = await q("select 1 from users where email = $1", [parsed.data.email]);
   if (exists.length) return { ok: false, error: "An account with this email already exists. Sign in instead." };
-  const [u] = await q<{ id: number }>("insert into users (email, name, password_hash) values ($1, $2, $3) returning id", [
-    parsed.data.email, parsed.data.name, await hashPassword(parsed.data.password),
-  ]);
+  const ref = (await cookies()).get("nk_ref")?.value;
+  const [u] = await q<{ id: number }>(
+    `insert into users (email, name, password_hash, ref_code, referred_by)
+     values ($1, $2, $3, $4, (select id from users where ref_code = $5)) returning id`,
+    [parsed.data.email, parsed.data.name, await hashPassword(parsed.data.password), newRefCode(), ref ?? null],
+  );
   await createSession(u.id);
   redirect(safeNext(o.next));
+}
+
+function newRefCode() {
+  return randomBytes(5).toString("hex").slice(0, 8);
 }
 
 export async function login(_: FormState, fd: FormData): Promise<FormState> {

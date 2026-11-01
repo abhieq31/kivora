@@ -22,7 +22,7 @@ async function Inner() {
   return (
     <>
       <h1 className="text-3xl font-bold tracking-tight">{a ? "Edit your agent profile" : "Create your agent profile"}</h1>
-      <p className="mb-8 mt-1 text-muted">Buyers and sellers on Kivora compare agents by reviews and published fees. Profiles without a RERA agent number aren&apos;t accepted.</p>
+      <p className="mb-8 mt-1 text-muted">Buyers and sellers on Nakshly compare agents by reviews and published fees. Profiles without a RERA agent number aren&apos;t accepted.</p>
       <AgentProfileForm initial={a ? { ...a, localities: a.localities.join(", "), languages: a.languages.join(", ") } : { name: u.name, email: u.email }} />
     </>
   );

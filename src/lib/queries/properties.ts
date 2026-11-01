@@ -69,6 +69,7 @@ export async function searchProperties(p: SearchParams): Promise<{ total: number
 }
 
 export type PropertyDetail = CardListing & {
+  survey_no: string;
   description: string;
   address: string;
   pincode: string;

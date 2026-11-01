@@ -1,7 +1,7 @@
 import "server-only";
 import { connect, migrate, type Query } from "./core";
 
-const g = globalThis as unknown as { __kivoraDb?: Promise<Query> };
+const g = globalThis as unknown as { __nakshlyDb?: Promise<Query> };
 
 async function init() {
   const q = await connect();
@@ -18,11 +18,11 @@ async function init() {
 }
 
 export function db(): Promise<Query> {
-  g.__kivoraDb ??= init().catch((e) => {
-    g.__kivoraDb = undefined;
+  g.__nakshlyDb ??= init().catch((e) => {
+    g.__nakshlyDb = undefined;
     throw e;
   });
-  return g.__kivoraDb;
+  return g.__nakshlyDb;
 }
 
 export type { Query };

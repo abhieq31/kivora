@@ -23,7 +23,7 @@ export default function Page({ searchParams }: { searchParams: SP }) {
       <section className="bg-gradient-to-b from-brand-soft to-white">
         <div className="mx-auto max-w-5xl px-4 py-12">
           <h1 className="text-4xl font-extrabold tracking-tight">What&apos;s my home worth?</h1>
-          <p className="mt-2 text-lg text-muted">A free Kivora Estimate of your home&apos;s market value and rent — with the comparable sales behind it.</p>
+          <p className="mt-2 text-lg text-muted">A free Nakshly Estimate of your home&apos;s market value and rent — with the comparable sales behind it.</p>
           <Suspense fallback={<div className="mt-8 h-64 animate-pulse rounded-xl bg-white" />}>
             <Body searchParams={searchParams} />
           </Suspense>
@@ -118,7 +118,7 @@ async function Body({ searchParams }: { searchParams: SP }) {
         <div className="mt-8 flex flex-wrap gap-3">
           {user ? <TrackHomeButton fields={{ city: city.slug, locality, property_type: subject.propertyType, bhk: String(subject.bhk), carpet_sqft: String(sqft), floor: s("floor"), age_years: s("age") }} />
             : <Link href={`/login?next=${encodeURIComponent("/home-value?" + new URLSearchParams(sp as Record<string, string>).toString())}`} className="btn">Sign in to track this home&apos;s value</Link>}
-          <Link href="/post-property" className="btn-outline">Sell or rent it out on Kivora</Link>
+          <Link href="/post-property" className="btn-outline">Sell or rent it out on Nakshly</Link>
           <Link href="/agents" className="btn-ghost">Talk to a local agent</Link>
         </div>
       </div>

@@ -22,7 +22,7 @@ export default function SellPage() {
         <div className="card p-8">
           <Megaphone className="h-9 w-9 text-brand" />
           <h2 className="mt-4 text-2xl font-bold">Sell it yourself</h2>
-          <p className="mt-2 text-muted">List directly to buyers on Kivora. Buyers can see you&apos;re the owner, which means no brokerage on either side.</p>
+          <p className="mt-2 text-muted">List directly to buyers on Nakshly. Buyers can see you&apos;re the owner, which means no brokerage on either side.</p>
           <ul className="mt-4 space-y-2 text-sm">
             <li className="flex gap-2"><BadgeIndianRupee className="h-5 w-5 text-good" /> ₹0 to list, ₹0 commission</li>
             <li className="flex gap-2"><Camera className="h-5 w-5 text-good" /> Up to 30 photos and a map pin</li>
@@ -37,7 +37,7 @@ export default function SellPage() {
           <ul className="mt-4 space-y-2 text-sm">
             <li className="flex gap-2"><BadgeIndianRupee className="h-5 w-5 text-good" /> Flat fees and percentage fees shown side by side</li>
             <li className="flex gap-2"><FileText className="h-5 w-5 text-good" /> RERA agent registration shown on every profile</li>
-            <li className="flex gap-2"><Users className="h-5 w-5 text-good" /> Reviews only from signed-in Kivora users</li>
+            <li className="flex gap-2"><Users className="h-5 w-5 text-good" /> Reviews only from signed-in Nakshly users</li>
           </ul>
           <Link href="/agents" className="btn-outline mt-6">Compare agents</Link>
         </div>
@@ -48,7 +48,7 @@ export default function SellPage() {
           {[
             ["Gather documents", "Sale deed / title chain, Index-II or registration copy, latest property tax receipt, society NOC and share certificate, OC/CC for newer buildings."],
             ["Clear dues", "Pay property tax, society maintenance and utility bills. Get a loan closure letter and collect originals if the home is mortgaged."],
-            ["Price with data", "Use the Kivora Estimate and recent registered sales nearby rather than asking prices on other portals."],
+            ["Price with data", "Use the Nakshly Estimate and recent registered sales nearby rather than asking prices on other portals."],
             ["Agreement to sell", "Sign an agreement with the token amount, timeline and who bears which costs. Have a lawyer review it."],
             ["TDS and capital gains", "Buyers deduct 1% TDS on homes above ₹50 L. Plan for capital gains tax and any reinvestment exemption."],
             ["Registration", "Execute the sale deed at the sub-registrar's office with stamp duty paid by the buyer; hand over keys and originals."],

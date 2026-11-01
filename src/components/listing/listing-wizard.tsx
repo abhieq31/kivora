@@ -21,7 +21,7 @@ export function ListingWizard({ initial, isAgent }: { initial?: ListingDraft; is
     listing_type: "sale", property_type: "apartment", posted_by: isAgent ? "agent" : "owner", city: "", locality: "", society: "",
     address: "", pincode: "", lat: null, lng: null, bhk: 2, bathrooms: 2, balconies: 1, carpet_sqft: "", builtup_sqft: "", super_sqft: "",
     floor: "", total_floors: "", facing: "east", furnishing: "semi", age_years: "", possession: "ready", possession_date: "", ownership: "freehold",
-    rera_id: "", parking_covered: 1, parking_open: 0, price: "", deposit: "", maintenance_monthly: "", negotiable: true, tenant_pref: "any",
+    rera_id: "", survey_no: "", parking_covered: 1, parking_open: 0, price: "", deposit: "", maintenance_monthly: "", negotiable: true, tenant_pref: "any",
     pets_allowed: false, available_from: "", amenities: [], photos: [], description: "",
     ...initial,
   });
@@ -169,6 +169,9 @@ export function ListingWizard({ initial, isAgent }: { initial?: ListingDraft; is
             {!plot && num("total_floors", "Total floors")}
             {!plot && num("age_years", "Age of property (years)", { hint: "0 for new" })}
           </div>
+          <Field label="Survey / CTS / Khasra no." hint="Optional. Shown with a link to your state's land record portal so buyers and tenants can verify you — listings with it get more serious enquiries.">
+            <input className="input" value={String(d.survey_no ?? "")} onChange={(e) => set("survey_no", e.target.value)} maxLength={60} />
+          </Field>
           <div><p className="label">Facing</p>{choice("facing", FACINGS.map((f) => [f, f.replace(/(^|-)\w/g, (c) => c.toUpperCase())]))}</div>
           {!plot && <div><p className="label">Furnishing</p>{choice("furnishing", [["unfurnished", "Unfurnished"], ["semi", "Semi-furnished"], ["full", "Fully furnished"]])}</div>}
           {sale && (
@@ -209,7 +212,7 @@ export function ListingWizard({ initial, isAgent }: { initial?: ListingDraft; is
           </div>
           {suggest && (
             <div className="rounded-xl bg-brand-soft p-4 text-sm">
-              <p className="font-semibold text-brand-dark">Kivora Estimate for a home like this: {sale ? priceLabel(suggest.value) : `${inr(suggest.value)}/mo`}</p>
+              <p className="font-semibold text-brand-dark">Nakshly Estimate for a home like this: {sale ? priceLabel(suggest.value) : `${inr(suggest.value)}/mo`}</p>
               <p className="text-brand-dark/80">Range {sale ? priceLabel(suggest.low) : inr(suggest.low)} – {sale ? priceLabel(suggest.high) : inr(suggest.high)} · {suggest.confidence} confidence. Homes priced near the estimate get more enquiries.</p>
               <button type="button" className="mt-2 font-semibold text-brand underline" onClick={() => set("price", String(suggest.value))}>Use this price</button>
             </div>

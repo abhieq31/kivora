@@ -22,7 +22,7 @@ async function Body() {
   await connection();
   await requireAdmin();
   const q = await db();
-  const [[stats], listings, agents, leads] = await Promise.all([
+  const [[stats], listings, agents, leads, services] = await Promise.all([
     q<{ users: number; listings: number; user_listings: number; inquiries: number; loan_leads: number; leases: number }>(`select
       (select count(*)::int from users) as users, (select count(*)::int from properties where status = 'active') as listings,
       (select count(*)::int from properties where not is_demo) as user_listings, (select count(*)::int from inquiries) as inquiries,
@@ -32,12 +32,31 @@ async function Body() {
        from properties p left join users u on u.id = p.owner_id where not p.is_demo order by p.verified, p.created_at desc limit 50`),
     q<{ id: number; name: string; agency: string; rera_id: string; city: string; verified: boolean }>("select id, name, agency, rera_id, city, verified from agents where not is_demo order by verified, created_at desc limit 50"),
     q<{ id: number; name: string; phone: string; city: string; loan_amount: number; created_at: string }>("select * from loan_leads order by created_at desc limit 20"),
+    q<{ id: number; service: string; name: string; phone: string; city: string; price: number | null; property_id: number | null; notes: string; created_at: string }>(
+      "select * from service_requests order by created_at desc limit 50"),
   ]);
   return (
     <>
       <div className="mt-6 grid gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {Object.entries(stats).map(([k, v]) => <div key={k} className="card p-4"><p className="text-xs capitalize text-muted">{k.replace("_", " ")}</p><p className="text-2xl font-bold">{v}</p></div>)}
       </div>
+      <h2 className="h-section mt-10">Service requests (revenue)</h2>
+      <p className="text-sm text-muted">Call back within one working day. Collect payment after delivery.</p>
+      <div className="mt-3 overflow-x-auto">
+        <table className="w-full min-w-[720px] text-left text-sm">
+          <thead className="border-b border-line text-muted"><tr><th className="py-2">Service</th><th>Name</th><th>Phone</th><th>City</th><th>Fee</th><th>When</th></tr></thead>
+          <tbody>
+            {services.map((r) => (
+              <tr key={r.id} className="border-b border-line align-top">
+                <td className="py-2">{r.service}{r.property_id && <> · <Link className="text-brand hover:underline" href={`/p/${r.property_id}`}>#{r.property_id}</Link></>}{r.notes && <p className="text-xs text-muted">{r.notes}</p>}</td>
+                <td>{r.name}</td><td>{r.phone}</td><td>{r.city}</td><td>{r.price == null ? "Partner" : `₹${r.price}`}</td><td>{timeAgo(r.created_at)}</td>
+              </tr>
+            ))}
+            {!services.length && <tr><td colSpan={6} className="py-3 text-muted">No requests yet.</td></tr>}
+          </tbody>
+        </table>
+      </div>
+
       <h2 className="h-section mt-10">User listings</h2>
       <p className="text-sm text-muted">Verify after checking ownership documents (sale deed / tax receipt) on a call.</p>
       <div className="mt-3 overflow-x-auto">

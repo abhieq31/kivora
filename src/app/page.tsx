@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { connection } from "next/server";
-import { BadgeCheck, Building2, HandCoins, Home, KeyRound, LineChart as ChartIcon, ShieldCheck } from "lucide-react";
+import { Building2, FileSearch, HandCoins, Home, KeyRound, LineChart as ChartIcon, ShieldCheck } from "lucide-react";
 import { HeroSearch } from "@/components/hero-search";
 import { PropertyCard } from "@/components/property-card";
 import { Footer } from "@/components/footer";
@@ -19,10 +19,10 @@ export default function HomePage() {
         <Skyline />
         <div className="relative mx-auto flex min-h-[440px] max-w-7xl flex-col justify-center px-4 py-16">
           <h1 className="max-w-2xl text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">
-            Find a home you&apos;ll love. Pay a price that&apos;s fair.
+            Every home in India, on one map. No brokerage.
           </h1>
           <p className="mb-6 mt-3 max-w-xl text-lg text-white/85">
-            Every listing on a map with price history, real transaction data and a Kivora Estimate — across India.
+            Talk to owners directly. See price history, the Nakshly Estimate and the land records before you pay a rupee.
           </p>
           <HeroSearch />
         </div>
@@ -50,7 +50,7 @@ export default function HomePage() {
       <section className="bg-paper">
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 md:grid-cols-2">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand">Kivora Estimate</p>
+            <p className="text-sm font-semibold uppercase tracking-wide text-brand">Nakshly Estimate</p>
             <h2 className="mt-2 text-3xl font-bold tracking-tight">Know what any home is worth — before you negotiate.</h2>
             <p className="mt-3 text-muted">
               Our model reads nearby registered sales and signed rent agreements, adjusts for floor, age, furnishing and Vastu facing,
@@ -87,7 +87,7 @@ export default function HomePage() {
             [<ShieldCheck key="i" className="h-6 w-6" />, "RERA, front and centre", "New projects show their RERA number. Agents show their RERA agent registration. Check it before you pay."],
             [<HandCoins key="i" className="h-6 w-6" />, "Fees you can see", "Agents publish their fee — flat or percentage — on their profile. Owner listings have no brokerage."],
             [<ChartIcon key="i" className="h-6 w-6" />, "Real prices, not asks", "Market trends use registered sales and signed rent agreements, so you see what homes actually go for."],
-            [<BadgeCheck key="i" className="h-6 w-6" />, "One listing per home", "Owners verify once. Duplicate posts with different photos and numbers get merged, not multiplied."],
+            [<FileSearch key="i" className="h-6 w-6" />, "7/12 to Khatauni, explained", "Every listing links to the official land record portal for its state — AnyROR, Mahabhumi, Bhoomi, UP Bhulekh — so you can check the owner yourself."],
           ].map(([icon, t, d]) => (
             <div key={t as string} className="rounded-xl border border-line p-5">
               <div className="grid h-11 w-11 place-items-center rounded-lg bg-brand-soft text-brand">{icon}</div>
@@ -98,7 +98,7 @@ export default function HomePage() {
         </div>
         <div className="mt-10 flex flex-col items-start justify-between gap-4 rounded-2xl bg-ink p-8 text-white sm:flex-row sm:items-center">
           <div>
-            <p className="text-xl font-bold">Building a project? List it on Kivora.</p>
+            <p className="text-xl font-bold">Building a project? List it on Nakshly.</p>
             <p className="text-white/70">Show configurations, RERA details and construction updates to serious buyers.</p>
           </div>
           <Link href="/new-projects" className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-ink"><Building2 className="h-4 w-4" /> Explore new projects</Link>
@@ -117,7 +117,7 @@ async function Fresh() {
     <section className="mx-auto max-w-7xl px-4 pb-16">
       <div className="flex items-end justify-between">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight">Fresh on Kivora</h2>
+          <h2 className="text-2xl font-bold tracking-tight">Fresh on Nakshly</h2>
           <p className="text-muted">Newly listed homes for sale and rent</p>
         </div>
         <Link href="/buy" className="text-sm font-semibold text-brand hover:underline">See all homes</Link>

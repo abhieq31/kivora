@@ -17,7 +17,8 @@ import { Gallery } from "@/components/property/gallery";
 import { ContactPanel } from "@/components/property/contact-panel";
 import { RentCosts, SaleCosts } from "@/components/property/cost-calculator";
 import { PointMap } from "@/components/property/point-map";
-import { ApplyButton, ShareButton } from "@/components/property/actions-bar";
+import { ApplyButton, ShareButton, WhatsAppButton } from "@/components/property/actions-bar";
+import { RecordsCheck } from "@/components/property/records-check";
 import { SaveButton } from "@/components/save-button";
 import { PropertyCard, propertyHref } from "@/components/property-card";
 import { LineChart, monthLabel } from "@/components/line-chart";
@@ -39,7 +40,6 @@ export async function generateMetadata({ params }: Pick<Props, "params">): Promi
   return {
     title: `${title(p)} — ${listingPrice(p.price, p.listing_type)}`,
     description: p.description.slice(0, 160),
-    openGraph: { images: p.photos[0]?.startsWith("http") ? [p.photos[0]] : undefined },
   };
 }
 
@@ -103,7 +103,7 @@ async function Detail({ params, searchParams }: Props) {
     <article className="mx-auto max-w-7xl px-4 pb-10 pt-4">
       {sp.posted && (
         <p className="mb-3 rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
-          Your listing is live. Share it, or <Link className="underline" href="/my-listings">manage it from My listings</Link>.
+          Your listing is live. <Link className="font-semibold underline" href={`/property/${p.id}/board`}>Print your {sale ? "For Sale" : "To-Let"} board with a QR code</Link> for your gate, share it on WhatsApp, or <Link className="underline" href="/my-listings">manage it from My listings</Link>.
         </p>
       )}
       <nav className="mb-3 flex flex-wrap items-center gap-1 text-sm text-muted">
@@ -112,6 +112,7 @@ async function Detail({ params, searchParams }: Props) {
         <span>{p.society || PROPERTY_TYPES[p.property_type]}</span>
         <span className="ml-auto flex gap-2">
           <SaveButton id={p.id} initial={saved.has(p.id)} variant="button" />
+          <WhatsAppButton text={`${title(p)} — ${listingPrice(p.price, p.listing_type)}${p.posted_by === "owner" ? " · direct from owner, no brokerage" : ""}`} />
           <ShareButton title={title(p)} />
         </span>
       </nav>
@@ -126,7 +127,11 @@ async function Detail({ params, searchParams }: Props) {
                 ● {p.status === "active" ? (sale ? (p.possession === "under_construction" ? "New launch · For sale" : "For sale") : "For rent") : p.status === "sold" ? "Sold" : p.status === "rented" ? "Rented" : "Off market"}
               </span>
               {p.verified && <span className="flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-good"><BadgeCheck className="h-3.5 w-3.5" /> Verified listing</span>}
-              {p.posted_by === "owner" && <span className="rounded-full bg-orange-50 px-2.5 py-1 text-xs font-semibold text-accent">Owner listing · no brokerage</span>}
+              {p.posted_by === "owner" && (
+                <span className="rounded-full bg-orange-50 px-2.5 py-1 text-xs font-semibold text-accent">
+                  Owner listing · you save ~{sale ? priceLabel(p.price * 0.01) : inr(p.price)} brokerage
+                </span>
+              )}
               {p.is_demo && <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">Demo data</span>}
             </div>
             <div className="mt-3 flex flex-wrap items-end gap-x-6 gap-y-2">
@@ -146,7 +151,7 @@ async function Detail({ params, searchParams }: Props) {
             </p>
             {mainEst && (
               <a href="#estimate" className="mt-3 inline-flex flex-wrap items-center gap-2 rounded-lg bg-paper px-3 py-2 text-sm">
-                <span className="font-semibold text-brand">Kivora Estimate</span>
+                <span className="font-semibold text-brand">Nakshly Estimate</span>
                 <b>{listingPrice(mainEst.value, p.listing_type)}</b>
                 {diff != null && Math.abs(diff) >= 0.02 && (
                   <span className={diff > 0 ? "text-bad" : "text-good"}>
@@ -158,7 +163,7 @@ async function Detail({ params, searchParams }: Props) {
               </a>
             )}
             <div className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-muted">
-              <span>{timeAgo(p.created_at)} on Kivora</span>
+              <span>{timeAgo(p.created_at)} on Nakshly</span>
               <span className="flex items-center gap-1"><Eye className="h-4 w-4" /> {p.views.toLocaleString("en-IN")} views</span>
               <span>{p.posted_by === "owner" ? "Posted by owner" : p.posted_by === "builder" ? "Posted by builder" : "Posted by agent"}</span>
             </div>
@@ -222,7 +227,7 @@ async function Detail({ params, searchParams }: Props) {
           </section>
 
           <section id="estimate" className="scroll-mt-20">
-            <h2 className="h-section">Kivora Estimate</h2>
+            <h2 className="h-section">Nakshly Estimate</h2>
             {mainEst ? <EstimateBlock est={mainEst} kind={p.listing_type} price={p.price} /> : <p className="mt-2 text-sm text-muted">Not enough nearby transactions to estimate this home yet.</p>}
             {(sale ? saleTrend : rentTrend).length > 2 && (
               <div className="mt-6">
@@ -275,6 +280,8 @@ async function Detail({ params, searchParams }: Props) {
             {sale && <Link href={`/home-loans?amount=${Math.round(p.price * 0.8)}`} className="mt-4 inline-block text-sm font-semibold text-brand hover:underline">Compare home loan offers →</Link>}
           </section>
 
+          <RecordsCheck state={city?.state ?? ""} sale={sale} surveyNo={p.survey_no} />
+
           <section>
             <h2 className="h-section">Neighbourhood: {p.locality}</h2>
             <div className="mt-4"><PointMap lat={p.lat} lng={p.lng} label={listingPrice(p.price, p.listing_type).replace("/mo", "")} /></div>
@@ -320,6 +327,7 @@ async function Detail({ params, searchParams }: Props) {
               <p className="font-semibold">This is your listing</p>
               <p className="mt-1 text-sm text-muted">{p.views} views so far.</p>
               <Link href={`/post-property?edit=${p.id}`} className="btn mt-4 w-full">Edit listing</Link>
+              <Link href={`/property/${p.id}/board`} className="btn-outline mt-2 w-full">Print {sale ? "For Sale" : "To-Let"} board (QR)</Link>
               <Link href="/my-listings" className="btn-ghost mt-2 w-full">Manage leads & status</Link>
             </div>
           ) : p.status === "active" ? (
@@ -335,7 +343,7 @@ async function Detail({ params, searchParams }: Props) {
           )}
           <Link href={`/home-value?city=${p.city}&locality=${encodeURIComponent(p.locality)}&bhk=${p.bhk}&sqft=${p.carpet_sqft}&type=${p.property_type}`} className="card block p-4 text-sm hover:border-brand">
             <p className="font-semibold">Own a similar home nearby?</p>
-            <p className="text-muted">See what it&apos;s worth with a free Kivora Estimate →</p>
+            <p className="text-muted">See what it&apos;s worth with a free Nakshly Estimate →</p>
           </Link>
         </aside>
       </div>

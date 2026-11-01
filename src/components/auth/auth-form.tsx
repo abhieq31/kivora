@@ -23,7 +23,7 @@ export function AuthForm({ mode, next }: { mode: "login" | "signup"; next: strin
         {mode === "login" ? "Sign in" : "Create account"}
       </Submit>
       <p className="text-center text-sm text-muted">
-        {mode === "login" ? <>New to Kivora? <Link href={`/signup?next=${encodeURIComponent(next)}`} className="font-semibold text-brand">Create an account</Link></>
+        {mode === "login" ? <>New to Nakshly? <Link href={`/signup?next=${encodeURIComponent(next)}`} className="font-semibold text-brand">Create an account</Link></>
           : <>Already have an account? <Link href={`/login?next=${encodeURIComponent(next)}`} className="font-semibold text-brand">Sign in</Link></>}
       </p>
     </form>

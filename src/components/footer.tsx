@@ -5,8 +5,8 @@ import { LogoMark } from "./logo";
 const COLS: [string, [string, string][]][] = [
   ["Buy & rent", [["/buy", "Homes for sale"], ["/rent", "Homes for rent"], ["/sold", "Recently sold"], ["/new-projects", "New projects"], ["/research", "Market trends"]]],
   ["Sell & own", [["/sell", "Sell your home"], ["/post-property", "Post a property"], ["/home-value", "Home value estimate"], ["/landlords", "Rental manager"], ["/agents", "Find an agent"]]],
-  ["Tools", [["/home-loans", "Home loan EMI"], ["/home-loans/affordability", "Affordability"], ["/calculators/stamp-duty", "Stamp duty"], ["/calculators/rent-vs-buy", "Rent vs buy"], ["/renter-profile", "Renter profile"]]],
-  ["Company", [["/about", "About Kivora"], ["/about#data", "Data & methodology"], ["/terms", "Terms"], ["/privacy", "Privacy"]]],
+  ["Tools", [["/home-loans", "Home loan EMI"], ["/home-loans/affordability", "Affordability"], ["/calculators/stamp-duty", "Stamp duty"], ["/calculators/rent-vs-buy", "Rent vs buy"], ["/land-records", "Check land records (7/12, Khatauni…)"], ["/services", "Rent agreement & title check"]]],
+  ["Company", [["/about", "About Nakshly"], ["/about#data", "Data & methodology"], ["/invite", "Invite & earn"], ["/terms", "Terms"], ["/privacy", "Privacy"]]],
 ];
 
 export function Footer() {
@@ -47,8 +47,8 @@ export function Footer() {
           </div>
         </div>
         <p className="mt-8 text-xs text-muted">
-          © Kivora. Listings marked “Demo” and all estimates built from demo data are illustrative.
-          Kivora Estimate is not an appraisal. Verify RERA registration at your state RERA portal.
+          © Nakshly. Listings marked “Demo” and all estimates built from demo data are illustrative.
+          Nakshly Estimate is not an appraisal. Verify RERA registration at your state RERA portal.
         </p>
       </div>
     </footer>

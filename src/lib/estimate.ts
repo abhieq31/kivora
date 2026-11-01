@@ -1,4 +1,4 @@
-// Kivora Estimate: a comparable-sales valuation model.
+// Nakshly Estimate: a comparable-sales valuation model.
 //
 // 1. Every comparable transaction is normalised to a "standard home" price per sq ft by
 //    dividing out its feature factor (floor, age, furnishing, facing, size, type).

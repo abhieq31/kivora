@@ -44,6 +44,7 @@ const listingSchema = z
     pets_allowed: z.string().optional(),
     ownership: z.enum(["freehold", "leasehold", "co-operative", "power_of_attorney"]),
     rera_id: z.string().max(60).default(""),
+    survey_no: z.string().max(60).default(""),
     posted_by: z.enum(["owner", "agent", "builder"]),
     photos: z.array(z.string().regex(/^\/(uploads|img)\/|^https:\/\//, "Bad photo URL").max(400)).max(30).default([]),
     available_from: z.string().optional(),
@@ -74,12 +75,12 @@ export async function saveListing(_: FormState, fd: FormData): Promise<FormState
     d.carpet_sqft, d.builtup_sqft ?? null, d.super_sqft ?? null, d.floor ?? null, d.total_floors ?? null, d.facing, d.furnishing,
     d.age_years ?? null, d.possession, d.possession_date || null, d.price, d.deposit ?? null, d.maintenance_monthly ?? null,
     d.negotiable === "on", d.parking_covered, d.parking_open, d.amenities, d.tenant_pref, d.pets_allowed === "on", d.ownership,
-    d.rera_id, d.posted_by, d.photos, d.available_from || null, d.description, status, agent?.id ?? null,
+    d.rera_id, d.posted_by, d.photos, d.available_from || null, d.description, status, agent?.id ?? null, d.survey_no,
   ];
   const cols = `listing_type, property_type, city, locality, society, address, pincode, lat, lng, bhk, bathrooms, balconies,
     carpet_sqft, builtup_sqft, super_sqft, floor, total_floors, facing, furnishing, age_years, possession, possession_date, price, deposit,
     maintenance_monthly, negotiable, parking_covered, parking_open, amenities, tenant_pref, pets_allowed, ownership, rera_id, posted_by,
-    photos, available_from, description, status, agent_id`;
+    photos, available_from, description, status, agent_id, survey_no`;
 
   let id = d.id;
   if (id) {

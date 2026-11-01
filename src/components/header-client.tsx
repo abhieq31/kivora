@@ -45,6 +45,7 @@ export function UserMenu({ name, email, role }: { name: string; email: string; r
     ["/landlords/dashboard", "Rentals dashboard"],
     ["/renter-profile", "Renter profile"],
     ["/home-value/my-homes", "My home value"],
+    ["/invite", "Invite & earn"],
     ["/agents/profile", role === "agent" ? "My agent profile" : "Become an agent"],
     ...(role === "admin" ? [["/admin", "Admin"]] : []),
   ];

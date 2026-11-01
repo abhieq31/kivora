@@ -84,7 +84,7 @@ export function ContactPanel({ propertyId, who, defaults, rental }: { propertyId
         <Notice state={state} />
         <Submit className="btn w-full" pendingText="Sending…">{tab === "tour" ? "Request this time" : "Send message"}</Submit>
         <p className="flex items-start gap-1.5 text-xs text-muted">
-          <ShieldCheck className="mt-0.5 h-3.5 w-3.5 shrink-0" /> Your number goes only to this {who.kind}. Kivora never sells your details.
+          <ShieldCheck className="mt-0.5 h-3.5 w-3.5 shrink-0" /> Your number goes only to this {who.kind}. Nakshly never sells your details.
         </p>
       </form>
       <div className="flex items-center gap-3 border-t border-line bg-paper p-4">
